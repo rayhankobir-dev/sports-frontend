@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/lib/utils/ui/button";
 import {
   Form,
@@ -38,6 +39,7 @@ const formSchema = z.object({
   phone: z.number().min(10, { message: "Plase enter phone number!" }),
   height: z.number().min(3, { message: "Plase enter height!" }),
   weight: z.number().min(3, { message: "Plase enter weight!" }),
+  avatar: z.string().url({ message: "Please enter a valid image URL" }),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -58,7 +60,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
   const title = initialData ? "Edit Player" : "Add Player";
   const description = initialData ? "Edit a player." : "Add a new player";
   const action = initialData ? "Save changes" : "Create";
-
+  console.log(open);
   const defaultValues = initialData
     ? initialData
     : {
@@ -69,7 +71,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
         phone: "",
         height: 0.0,
         weight: 0.0,
-        image: null,
+        avatar: null,
         gender: "",
         genre: "",
       };
@@ -255,7 +257,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {categories?.map((category) => (
+                        {categories?.map((category: any) => (
                           <SelectItem key={category._id} value={category._id}>
                             {category.name}
                           </SelectItem>
@@ -287,7 +289,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {categories?.map((category) => (
+                        {categories?.map((category: any) => (
                           <SelectItem key={category._id} value={category._id}>
                             {category.name}
                           </SelectItem>
@@ -301,12 +303,17 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
 
               <FormField
                 control={form.control}
-                name="image"
+                name="avatar"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Avatar</FormLabel>
                     <FormControl>
-                      <Input type="file" disabled={loading} {...field} />
+                      <Input
+                        type="file"
+                        disabled={loading}
+                        {...field}
+                        accept=".jpg, .jpeg, .png"
+                      />
                     </FormControl>
                     <FormMessage className="font-light" />
                   </FormItem>
