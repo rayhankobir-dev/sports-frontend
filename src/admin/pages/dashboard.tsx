@@ -10,9 +10,14 @@ function Dashboard() {
         <div className="flex-1 space-y-4  p-4 md:p-8 pt-6">
           <BreadCrumb items={breadcrumbItems} />
           <PlayerAddForm
-            categories={[
-              { _id: "shirts", name: "shirts" },
-              { _id: "pants", name: "pants" },
+            genders={[
+              { _id: "male", name: "Male" },
+              { _id: "female", name: "Female" },
+            ]}
+            genres={[
+              { _id: "midfilder", name: "Midfilder" },
+              { _id: "goalkeeper", name: "Goalkeeper" },
+              { _id: "defense", name: "Defense" },
             ]}
             initialData={null}
             key={null}

@@ -5,9 +5,9 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/lib/utils/ui/form";
+import { Label } from "@/lib/utils/ui/label";
 import { Heading } from "@/lib/utils/ui/heading";
 import { Input } from "@/lib/utils/ui/input";
 import { ScrollArea } from "@/lib/utils/ui/scroll-area";
@@ -48,12 +48,14 @@ interface ProductFormProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialData: any | null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: any;
+  genders: any;
+  genres: any;
 }
 
 export const PlayerAddForm: React.FC<ProductFormProps> = ({
   initialData,
-  categories,
+  genders,
+  genres,
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -121,13 +123,13 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
             onSubmit={form.handleSubmit(onSubmit)}
             className="px-1 space-y-8 w-full relative"
           >
-            <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-3">
               <FormField
                 control={form.control}
                 name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First name</FormLabel>
+                    <Label>First name</Label>
                     <FormControl>
                       <Input
                         disabled={loading}
@@ -144,7 +146,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Last name</FormLabel>
+                    <Label>Last name</Label>
                     <FormControl>
                       <Input
                         disabled={loading}
@@ -161,7 +163,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <Label>Email</Label>
                     <FormControl>
                       <Input
                         type="email"
@@ -179,7 +181,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <Label>Password</Label>
                     <FormControl>
                       <Input
                         type="password"
@@ -197,7 +199,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone</FormLabel>
+                    <Label>Phone</Label>
                     <FormControl>
                       <Input
                         type="tel"
@@ -215,7 +217,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                 name="height"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Height</FormLabel>
+                    <Label>Height</Label>
                     <FormControl>
                       <Input type="number" disabled={loading} {...field} />
                     </FormControl>
@@ -228,7 +230,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                 name="weight"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Weight</FormLabel>
+                    <Label>Weight</Label>
                     <FormControl>
                       <Input type="number" disabled={loading} {...field} />
                     </FormControl>
@@ -241,7 +243,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                 name="gender"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Gender</FormLabel>
+                    <Label>Gender</Label>
                     <Select
                       disabled={loading}
                       onValueChange={field.onChange}
@@ -257,9 +259,9 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {categories?.map((category: any) => (
-                          <SelectItem key={category._id} value={category._id}>
-                            {category.name}
+                        {genders?.map((gender: any) => (
+                          <SelectItem key={gender._id} value={gender._id}>
+                            {gender.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -273,7 +275,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                 name="genre"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Genre</FormLabel>
+                    <Label>Genre</Label>
                     <Select
                       disabled={loading}
                       onValueChange={field.onChange}
@@ -289,9 +291,9 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {categories?.map((category: any) => (
-                          <SelectItem key={category._id} value={category._id}>
-                            {category.name}
+                        {genres?.map((genre: any) => (
+                          <SelectItem key={genre._id} value={genre._id}>
+                            {genre.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -306,7 +308,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
                 name="avatar"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Avatar</FormLabel>
+                    <Label>Avatar</Label>
                     <FormControl>
                       <Input
                         type="file"
