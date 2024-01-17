@@ -8,9 +8,9 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   // playlists: Playlist[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function MobileSidebar({ className }: SidebarProps) {
   const [open, setOpen] = useState(false);
+  console.log(className);
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>

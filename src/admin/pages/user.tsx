@@ -9,6 +9,7 @@ import { Plus } from "lucide-react";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 
 function TaskPage(): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [tasks, setTasks] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
