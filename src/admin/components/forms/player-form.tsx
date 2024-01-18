@@ -62,7 +62,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
   const title = initialData ? "Edit Player" : "Add Player";
   const description = initialData ? "Edit a player." : "Add a new player";
   const action = initialData ? "Save changes" : "Create";
-  console.log(open);
+
   const defaultValues = initialData
     ? initialData
     : {
@@ -73,7 +73,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
         phone: "",
         height: 0.0,
         weight: 0.0,
-        avatar: null,
+        avatar: "",
         gender: "",
         genre: "",
       };
@@ -84,6 +84,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
   });
 
   const onSubmit = async (data: ProductFormValues) => {
+    console.log(open);
     try {
       console.log(data);
       setLoading(true);
@@ -123,7 +124,7 @@ export const PlayerAddForm: React.FC<ProductFormProps> = ({
             onSubmit={form.handleSubmit(onSubmit)}
             className="px-1 space-y-8 w-full relative"
           >
-            <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-3">
+            <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 md:gap-y-3">
               <FormField
                 control={form.control}
                 name="firstName"

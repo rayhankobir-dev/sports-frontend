@@ -2,7 +2,7 @@ import BreadCrumb from "../components/breadcrumb";
 import { PlayerAddForm } from "../components/forms/player-form";
 import DashboardLayout from "../layout/layout";
 
-const breadcrumbItems = [{ title: "User", link: "/dashboard/user" }];
+const breadcrumbItems = [{ title: "Player", link: "/dashboard/player/create" }];
 function Dashboard() {
   return (
     <DashboardLayout>

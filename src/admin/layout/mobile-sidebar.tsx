@@ -4,13 +4,10 @@ import { navItems } from "@/constants/data";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-  // playlists: Playlist[];
-}
-
-export function MobileSidebar({ className }: SidebarProps) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function MobileSidebar() {
   const [open, setOpen] = useState(false);
-  console.log(className);
+
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>
