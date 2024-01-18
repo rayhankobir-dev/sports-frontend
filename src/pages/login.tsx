@@ -46,8 +46,9 @@ function LoginPage() {
             <Button
               className="w-full bg-green-600 hover:bg-green-500"
               type="submit"
+              asChild
             >
-              Sign in
+              <Link to="/dashboard">Sign in</Link>
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
