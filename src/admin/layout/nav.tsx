@@ -11,6 +11,8 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/lib/utils/ui/dropdown-menu";
+import { Link } from "react-router-dom";
+import { Settings, User } from "lucide-react";
 
 export function UserNav() {
   return (
@@ -35,12 +37,17 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            <Link to="/dashboard/profile">Profile</Link>
+
+            <DropdownMenuShortcut>
+              <User size={14} />
+            </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            <Link to="/dashboard/settings">Settings</Link>
+            <DropdownMenuShortcut>
+              <Settings size={14} />
+            </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

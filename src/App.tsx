@@ -8,6 +8,7 @@ import VideoPage from "./pages/videos";
 import AddUserPage from "./admin/pages/add-user";
 import AddCoachPage from "./admin/pages/add-coach";
 import AddVideoPage from "./admin/pages/add-video";
+import UserProfilePage from "./admin/pages/profile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/dashboard/player" element={<AddUserPage />} />
       <Route path="/dashboard/coach" element={<AddCoachPage />} />
       <Route path="/dashboard/video" element={<AddVideoPage />} />
+      <Route path="/dashboard/profile" element={<UserProfilePage />} />
     </Routes>
   );
 }
