@@ -3,9 +3,9 @@ import { PiSoccerBall } from "react-icons/pi";
 import { Link, NavLink } from "react-router-dom";
 
 const activeLinkClass =
-  "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors text-green-600 hover:text-green-600 focus:bg-gray-100 focus:text-green-600 focus:outline-none disabled:pointer-events-none disabled:opacity-50";
+  "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors text-green-600 hover:text-green-600 hover:text-green-600 focus:text-green-600 focus:outline-none disabled:pointer-events-none disabled:opacity-50";
 const defaultLinkClass =
-  "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50";
+  "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-gray-900 hover:text-green-600 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50";
 function HeaderSection() {
   return (
     <header className="inset-x-0 top-0 z-50 w-full bg-white backdrop-blur-lg sticky border-b ">
@@ -35,7 +35,7 @@ function HeaderSection() {
             className={({ isActive }) =>
               isActive ? activeLinkClass : defaultLinkClass
             }
-            to="/videos=defense"
+            to="/videos"
           >
             Defense
           </NavLink>
@@ -43,7 +43,7 @@ function HeaderSection() {
             className={({ isActive }) =>
               isActive ? activeLinkClass : defaultLinkClass
             }
-            to="/videos=midfilder"
+            to="/videos"
           >
             Midfilder
           </NavLink>
@@ -51,7 +51,7 @@ function HeaderSection() {
             className={({ isActive }) =>
               isActive ? activeLinkClass : defaultLinkClass
             }
-            to="/video=striker"
+            to="/videos"
           >
             Striker
           </NavLink>

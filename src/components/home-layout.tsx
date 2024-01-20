@@ -5,7 +5,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <HeaderSection />
-      <main className="max-w-7xl mx-auto">{children}</main>
+      <main className="container max-w-7xl mx-auto">{children}</main>
       <FooterSection />
     </>
   );

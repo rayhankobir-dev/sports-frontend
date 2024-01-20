@@ -1,7 +1,7 @@
 function FooterSection() {
   return (
     <footer className="relative pt-10 lg:pt-10 bg-gray-50 border-t">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-8 ">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full px-4 sm:w-2/3 lg:w-3/12">
             <div className="w-full mb-10">

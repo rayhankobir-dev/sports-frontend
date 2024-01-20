@@ -1,5 +1,11 @@
 import HomeLayout from "@/components/home-layout";
 import MissedChanceGif from "../assets/missed-chances.gif";
+import HomeOutline1 from "../assets/home-outline1.png";
+import HomeOutline2 from "../assets/home-outline2.png";
+import HomeOutline3 from "../assets/home-outline3.png";
+import { Button } from "@/lib/utils/ui/button";
+import { Link } from "react-router-dom";
+import { Badge } from "@/lib/utils/ui/badge";
 
 const clipPath =
   "clip-path: polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)";
@@ -65,7 +71,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="grid grid-cols-2 items-center">
+      <section className="grid md:grid-cols-2 items-center">
         <img src={MissedChanceGif} alt="" />
         <div>
           <h1 className="font-bold text-5xl text-green-600">
@@ -88,6 +94,108 @@ function HomePage() {
               more easily later
             </li>
           </p>
+        </div>
+      </section>
+
+      <section className="w-full py-12 md:py-24 lg:py-32">
+        <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+          <img
+            src={HomeOutline1}
+            width="550"
+            height="310"
+            alt="Image"
+            className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+          />
+          <div className="flex flex-col justify-center space-y-4">
+            <div className="space-y-2">
+              <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
+                Inspiration
+              </div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Need inspiration for your sessions?
+              </h2>
+              <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                Never be short of ideas with our ever growing collection of
+                Football drills. With pro drills and the community section, the
+                inspiration is constantly growing. Browse Football drills by
+                category or use the search bar to quickly find what you're
+                looking for.
+              </p>
+            </div>
+            <div>
+              <Button variant={"default"} className="px-10" asChild>
+                <Link to={""}>See Videos</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-fit py-12 md:py-24 lg:py-32 rounded-xl bg-gray-100 dark:bg-gray-800">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+            <img
+              src={HomeOutline2}
+              width="550"
+              height="310"
+              alt="Image"
+              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+            />
+            <div className="flex flex-col justify-center space-y-4">
+              <div className="space-y-2">
+                <Badge>Planning</Badge>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl ">
+                  Save time planning sessions
+                </h2>
+                <p className="max-w-[600px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                  Never be pushed for time again, access the soccer session plan
+                  archive to pick one of our tried and tested, professional
+                  soccer plans, ready use straight away. Or create your own
+                  session with your favourite drills in just one click.
+                </p>
+              </div>
+              <div>
+                <Button variant={"default"} className="px-10" asChild>
+                  <Link to={""}>See Videos</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full py-12 md:py-24 lg:py-32">
+        <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+          <img
+            src={HomeOutline3}
+            width="550"
+            height="310"
+            alt="Image"
+            className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+          />
+          <div className="flex flex-col justify-center space-y-4">
+            <div className="space-y-2">
+              <Badge>Coaching</Badge>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Organise your coaching resources
+              </h2>
+              <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                Store all of your soccer coaching content in one place with an
+                unlimited amount of storage in your folders. Add your favourite
+                pieces of content to your own space to use later on and filter
+                them to find exactly what you need.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 min-[400px]:flex-row">
+              <Button
+                variant={"default"}
+                className="px-10 border-gray-700"
+                asChild
+              >
+                <Link to={""}>See Videos</Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
     </HomeLayout>
