@@ -5,14 +5,14 @@ import {
   AccordionItem,
   Accordion,
 } from "@/lib/utils/ui/accordion";
-import HomeLayout from "@/components/home-layout";
 import GoalSvg from "../assets/goal.svg";
 import PlayerSvg from "../assets/payler.svg";
 import { Link } from "react-router-dom";
+import { Fragment } from "react";
 
 export default function AboutPage() {
   return (
-    <HomeLayout>
+    <Fragment>
       <section className="w-full py-12 md:py-20 lg:py-20">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
@@ -129,6 +129,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-    </HomeLayout>
+    </Fragment>
   );
 }

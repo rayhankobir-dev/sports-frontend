@@ -1,30 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/lib/utils/ui/card";
+import { Card, CardContent, CardFooter } from "@/lib/utils/ui/card";
+import Rating from "./rating";
+import { Heart } from "lucide-react";
 
-interface VideoProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  thumbnail: any;
-  title: string;
-  description: string;
-}
-
-function VideoCard({ thumbnail, title, description }: VideoProps) {
+function VideoCard({ video }: any) {
   return (
     <Card className="relative group border rounded-md overflow-hidden">
-      <Link to="">
+      <Link to={`/videos/${video.slug}`}>
         <img
-          alt="Product 3"
           className="object-contain w-full group-hover:opacity-80 transition-opacity"
-          src={thumbnail}
+          src={video.thumbnail}
         />
-        <CardContent className="p-3">
-          <h2 className="font-semibold tracking-tight text-xl">{title}</h2>
-          <small className="text-sm leading-none text-gray-500 dark:text-gray-400">
-            Category: Drills
-          </small>
-          <p className="text-light text-sm truncate pt-3">{description}</p>
-        </CardContent>
       </Link>
+      <CardContent className="relative p-3">
+        <button className="p-2 rounded-md absolute -top-5 right-3 hover:bg-green-500 bg-green-600 text-white group-hover:opacity-100">
+          <Heart />
+        </button>
+        <Link to={`/videos/${video.slug}`}>
+          <h2 className="font-semibold tracking-tight text-xl">
+            {video.title}
+          </h2>
+        </Link>
+        <small className="text-sm leading-none text-gray-500 dark:text-gray-400">
+          Category: {video.genre.name}
+        </small>
+        <p className="text-light text-sm truncate pt-3">{video.description}</p>
+      </CardContent>
+      <CardFooter className="px-3">
+        <Rating rating={Number(video.averageRating)} size={12} />
+      </CardFooter>
     </Card>
   );
 }

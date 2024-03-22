@@ -1,4 +1,3 @@
-import HomeLayout from "@/components/home-layout";
 import MissedChanceGif from "../assets/missed-chances.gif";
 import HomeOutline1 from "../assets/home-outline1.png";
 import HomeOutline2 from "../assets/home-outline2.png";
@@ -6,16 +5,18 @@ import HomeOutline3 from "../assets/home-outline3.png";
 import { Button } from "@/lib/utils/ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "@/lib/utils/ui/badge";
+import { Fragment } from "react";
+import { CheckCircleIcon } from "lucide-react";
 
 const clipPath =
-  "clip-path: polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)";
+  "clipPath: polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)";
 const clipPath2 =
-  "clip-path: polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)";
+  "clipPath: polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)";
 
 function HomePage() {
   return (
-    <HomeLayout>
-      <section className="relative isolate px-6 lg:px-8">
+    <Fragment>
+      <section className="relative isolate px-6 lg:px-8 pt-10 md:pt-0">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
@@ -25,14 +26,14 @@ function HomePage() {
             style={{ clipPath: clipPath }}
           ></div>
         </div>
-        <div className="mx-auto max-w-3xl pb-20 sm:py-48 lg:py-20">
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+        <div className="mx-auto max-w-fit pb-20 sm:py-16 lg:py-20">
+          <div className="mb-8 sm:flex sm:justify-center">
+            <div className="max-w-fit mx-auto relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               Announcing our Upcomming videos.
-              <a href="#" className="font-semibold text-green-600">
+              <span className="font-semibold text-green-600">
                 <span className="absolute inset-0" aria-hidden="true"></span>
                 Read more <span aria-hidden="true">→</span>
-              </a>
+              </span>
             </div>
           </div>
           <div className="text-center">
@@ -45,18 +46,18 @@ function HomePage() {
               fugiat aliqua.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
-                className="rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              <Link
+                to="/videos"
+                className="rounded-lg bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Get started
-              </a>
-              <a
-                href="#"
-                className="rounded-md border border-green-600 hover:bg-green-500 hover:text-white duration-100 px-3.5 py-2.5 text-sm font-semibold text-green-600 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              </Link>
+              <Link
+                to="/videos"
+                className="rounded-lg border border-green-600 hover:bg-green-500 hover:text-white duration-100 px-3.5 py-2.5 text-sm font-semibold text-green-600 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 Learn more <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -77,23 +78,28 @@ function HomePage() {
           <h1 className="font-bold text-5xl text-green-600">
             Need inspiration for your sessions?
           </h1>
-          <p className="mt-10 mr-5">
+          <p className="mt-10 mr-5 font-medium">
             Never be short of ideas with our ever growing collection of Football
             drills. With pro drills and the community section, the inspiration
             is constantly growing.
-            <li className="mt-5">
+          </p>
+          <ul className="flex flex-col gap-5 font-light mt-5">
+            <li className="inline-flex items-center gap-2 ">
+              <CheckCircleIcon className="text-green-600 min-w-fit" size={20} />
               Browse Football drills by category or use the search bar to
               quickly find what you're looking for.
             </li>
-            <li>
+            <li className="inline-flex items-center gap-2 ">
+              <CheckCircleIcon className="text-green-600 min-w-fit" size={20} />
               Over 500+ football training games and drills Constant stream of
               community football drills and trends
             </li>
-            <li>
+            <li className="inline-flex items-center gap-2 ">
+              <CheckCircleIcon className="text-green-600 min-w-fit" size={20} />
               Favourite the football drills you like to save them and find them
               more easily later
             </li>
-          </p>
+          </ul>
         </div>
       </section>
 
@@ -198,7 +204,7 @@ function HomePage() {
           </div>
         </div>
       </section>
-    </HomeLayout>
+    </Fragment>
   );
 }
 

@@ -1,51 +1,39 @@
-import HomeLayout from "@/components/home-layout";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import VideoCard from "@/components/video-card";
-import VideoThmb1 from "../assets/videos/video-1.png";
-
-const videos = [
-  {
-    id: 1,
-    thumbnail: VideoThmb1,
-    title: "Football Drills For 4V1",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-  },
-  {
-    id: 2,
-    thumbnail: VideoThmb1,
-    title: "Football Drills For 4V1",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-  },
-  {
-    id: 3,
-    thumbnail: VideoThmb1,
-    title: "Football Drills For 4V1",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-  },
-  {
-    id: 4,
-    thumbnail: VideoThmb1,
-    title: "Football Drills For 4V1",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-  },
-];
+import SpinerLoading from "@/components/spiner-loading";
+import { useVideo } from "@/hooks/useVideo";
+import MissedChance from "@/assets/vector/missed-chance.svg";
 
 const VideoPage = () => {
+  const { loading, videos }: any = useVideo();
+
   return (
-    <HomeLayout>
-      <section className="py-10">
-        <div className="space-y-2 py-4">
-          <h2 className="text-3xl font-bold ">Recent Videos</h2>
-          <p className="">
-            Find what you're looking for from our extensive collection.
-          </p>
-        </div>
+    <section className="py-10">
+      <div className="space-y-2 py-4">
+        <h2 className="text-3xl font-bold ">Recent Videos</h2>
+        <p className="">
+          Find what you're looking for from our extensive collection.
+        </p>
+      </div>
+      {loading ? (
+        <SpinerLoading />
+      ) : (
         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-2">
-          {videos.map((video) => (
-            <VideoCard key={video.id} {...video} />
-          ))}
+          {videos.filter((item: any) => item.isPublished).length ? (
+            videos
+              .filter((item: any) => item.isPublished)
+              .map((video: any) => <VideoCard video={video} key={video._id} />)
+          ) : (
+            <div className="col-span-4 py-10 border-dashed border rounded-xl bg-gray-50">
+              <img className="w-48 mx-auto" src={MissedChance} />
+              <h1 className="text-center font-semibold text-xl text-green-600">
+                Video Not Avialable
+              </h1>
+            </div>
+          )}
         </div>
-      </section>
-    </HomeLayout>
+      )}
+    </section>
   );
 };
 

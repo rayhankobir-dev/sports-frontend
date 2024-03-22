@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import SpinerLoading from "@/components/spiner-loading";
+import { Heading } from "@/lib/utils/ui/heading";
+import { Button } from "@/lib/utils/ui/button";
 import {
   Form,
   FormControl,
@@ -13,18 +16,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/lib/utils/ui/select";
-import SpinerLoading from "@/components/spiner-loading";
 import { ScrollArea } from "@/lib/utils/ui/scroll-area";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Heading } from "@/lib/utils/ui/heading";
-import { Button } from "@/lib/utils/ui/button";
 import { Label } from "@/lib/utils/ui/label";
 import { Input } from "@/lib/utils/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import useAxios from "@/hooks/useAxios";
-import toast from "react-hot-toast";
 import * as z from "zod";
+import toast from "react-hot-toast";
+import useAxios from "@/hooks/useAxios";
 import { Separator } from "@/lib/utils/ui/separator";
 
 const formSchema = z.object({
@@ -36,7 +36,7 @@ const formSchema = z.object({
 
 export type PlayerFormValue = z.infer<typeof formSchema>;
 
-const AddCoach = () => {
+const AddPlayer = () => {
   const [fetching, setFetching] = useState(true);
   const [posting, setPosting] = useState(false);
   const [genres, setGenres] = useState([]);
@@ -79,7 +79,7 @@ const AddCoach = () => {
         formData.append("password", payload.password);
         formData.append("genre", payload.genre);
         formData.append("avatar", avatar);
-        formData.append("role", "coach");
+        formData.append("role", "player");
 
         const response = await authAxios.post("/user/create", formData, {
           headers: {
@@ -125,9 +125,9 @@ const AddCoach = () => {
   };
 
   return (
-    <div>
+    <section>
       <Heading
-        title="Add Coach"
+        title="Add Player"
         description="Please fill all information about the admin"
       />
       <Separator className="my-4" />
@@ -274,8 +274,8 @@ const AddCoach = () => {
           </ScrollArea>
         </Form>
       )}
-    </div>
+    </section>
   );
 };
 
-export default AddCoach;
+export default AddPlayer;
