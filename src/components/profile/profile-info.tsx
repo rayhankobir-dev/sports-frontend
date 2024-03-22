@@ -38,8 +38,8 @@ const formSchema = z.object({
   fullName: z.string().min(3),
   email: z.string().email({ message: "Please enter valid email address" }),
   genre: z.string().optional(),
-  height: z.number().min(0, { message: "Height is required" }),
-  weight: z.number().min(0, { message: "Weight is required" }),
+  height: z.string().min(0, { message: "Height is required" }),
+  weight: z.string().min(0, { message: "Weight is required" }),
   country: z.string().min(2, { message: "Country is required" }),
 });
 
@@ -50,7 +50,7 @@ export default function PersonalInformation() {
   const [updating, setUpdating] = useState(false);
   const [countries, setCountries] = useState([]);
   const [genres, setGenres] = useState([]);
-  const { auth }: any = useAuth();
+  const { auth, setAuth }: any = useAuth();
   const { authAxios, publicAxios }: any = useAxios();
 
   useEffect(() => {
@@ -77,8 +77,8 @@ export default function PersonalInformation() {
     fullName: auth.user?.fullName || undefined,
     genre: auth?.user?.genre?._id || undefined,
     email: auth.user?.email || undefined,
-    height: auth.user?.height || undefined,
-    weight: auth.user?.weight || undefined,
+    height: String(auth.user?.height) || undefined,
+    weight: String(auth.user?.weight) || undefined,
     country: auth.user?.country || undefined,
   };
 
@@ -93,6 +93,11 @@ export default function PersonalInformation() {
       setUpdating(true);
       const response = await authAxios.put("/user/update-profile", data);
       toast.success(response.data.message);
+      const res = await authAxios.get("/user/profile");
+
+      setAuth((current: any) => {
+        return { ...current, user: res.data.data.user };
+      });
     } catch (error: any) {
       toast.success(error.response.data.message);
     } finally {

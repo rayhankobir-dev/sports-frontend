@@ -4,28 +4,21 @@ import SpinerLoading from "@/components/spiner-loading";
 import VideoCard from "@/components/video-card";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useAxios from "@/hooks/useAxios";
+import { useVideo } from "@/hooks/useVideo";
 
 const GenreVideoPage = () => {
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { publicAxios }: any = useAxios();
+  const [genreVideos, setGenreVideos] = useState([]);
+  const { loading, videos }: any = useVideo();
   const { slug } = useParams();
 
   useEffect(() => {
-    async function fetchVideos() {
-      try {
-        const response = await publicAxios.get(`/video/genre/${slug}`);
-        const { videos } = response.data.data;
-        setVideos(videos);
-      } catch (error) {
-        setVideos([]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchVideos();
-  }, [slug, publicAxios]);
+    const publishedVideos = videos.filter((item: any) => item.isPublished);
+    const genreVideos = publishedVideos.filter(
+      (item: any) => item.genre.slug === slug
+    );
+
+    setGenreVideos(genreVideos);
+  }, [videos, slug]);
 
   return (
     <section className="py-10">
@@ -37,9 +30,9 @@ const GenreVideoPage = () => {
       </div>
       {loading ? (
         <SpinerLoading />
-      ) : videos.length > 0 ? (
+      ) : genreVideos.length > 0 ? (
         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-2">
-          {videos.map((video: any) => (
+          {genreVideos.map((video: any) => (
             <VideoCard video={video} key={video._id} />
           ))}
         </div>

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/lib/utils/ui/card";
-import Rating from "./rating";
+import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
+import Rating from "./rating";
 
 function VideoCard({ video }: any) {
   return (

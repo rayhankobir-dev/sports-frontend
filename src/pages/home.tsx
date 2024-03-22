@@ -37,10 +37,10 @@ function HomePage() {
             </div>
           </div>
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-green-700 sm:text-6xl">
+            <h1 className="max-w-3xl mx-auto text-4xl font-bold tracking-tight text-green-700 sm:text-6xl">
               Watch your preferable Videos. Get Skill from our coach.
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
+            <p className="max-w-2xl mx-auto mt-6 text-lg leading-8 text-gray-600">
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
               lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
               fugiat aliqua.

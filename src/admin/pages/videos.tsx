@@ -3,9 +3,7 @@
 import SpinerLoading from "@/components/spiner-loading";
 import { Heading } from "@/lib/utils/ui/heading";
 import { Eye, EyeOff, Filter } from "lucide-react";
-import { Fragment, useCallback, useEffect, useState } from "react";
-import useAxios from "@/hooks/useAxios";
-import useAuth from "@/hooks/useAuth";
+import { Fragment, useEffect, useState } from "react";
 import { Button } from "@/lib/utils/ui/button";
 import { Link } from "react-router-dom";
 import { Separator } from "@/lib/utils/ui/separator";
@@ -20,29 +18,16 @@ import {
 } from "@/lib/utils/ui/dropdown-menu";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import DashboardVideoCard from "../components/video-card";
+import { useVideo } from "@/hooks/useVideo";
 
 export default function AllVideos() {
   const [search, setSearch] = useState("");
-  const [fetching, setFetching] = useState(true);
-  const [videos, setVideos] = useState([]);
-  const [sortedVideos, setSortedVideos] = useState(videos);
-  const { authAxios }: any = useAxios();
-  const { auth }: any = useAuth();
-
-  const fetVideos = useCallback(async () => {
-    try {
-      const response = await authAxios.get("/video");
-      setVideos(response.data.data.videos);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setFetching(false);
-    }
-  }, [authAxios]);
+  const [sortedVideos, setSortedVideos] = useState([]);
+  const { loading, videos, getDashboardVideo }: any = useVideo();
 
   useEffect(() => {
-    fetVideos();
-  }, [fetVideos, auth]);
+    setSortedVideos(getDashboardVideo());
+  }, [getDashboardVideo, videos]);
 
   const handleSearchChange = (event: any) => {
     setSearch(event.target.value.trim());
@@ -50,9 +35,9 @@ export default function AllVideos() {
 
   const handleStatusChange = (status: string) => {
     if (status === "all") {
-      setSortedVideos(sortedVideos);
+      setSortedVideos(getDashboardVideo());
     } else if (status === "publish") {
-      const filtered = videos.filter(
+      const filtered = getDashboardVideo().filter(
         (video: any) => video.isPublished === true
       );
       setSortedVideos(filtered);
@@ -65,11 +50,11 @@ export default function AllVideos() {
   };
 
   useEffect(() => {
-    const filteredVideos = videos.filter((video: any) => {
+    const filteredVideos = getDashboardVideo().filter((video: any) => {
       return video.title.toLowerCase().includes(search.toLowerCase());
     });
     setSortedVideos(filteredVideos);
-  }, [search, videos]);
+  }, [getDashboardVideo, search, videos]);
 
   return (
     <section>
@@ -84,7 +69,7 @@ export default function AllVideos() {
       </div>
 
       <Separator className="mt-4" />
-      {fetching ? (
+      {loading ? (
         <div className="h-96 w-full flex justify-center">
           <SpinerLoading size={30} className="text-green-600" />
         </div>
@@ -140,7 +125,7 @@ export default function AllVideos() {
               ))}
             </div>
           ) : (
-            <div className="w-full h-96 flex flex-col justify-center items-center gap-2">
+            <div className="max-w-full h-96 flex flex-col justify-center items-center gap-2">
               <svg
                 width={150}
                 xmlns="http://www.w3.org/2000/svg"

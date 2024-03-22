@@ -33,6 +33,7 @@ import {
   DialogTitle,
 } from "@/lib/utils/ui/dialog";
 import ReactPlayer from "react-player";
+import { useVideo } from "@/hooks/useVideo";
 
 const formSchema = z.object({
   title: z.string().min(10, {}),
@@ -51,6 +52,7 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
   const [video, setVideo] = useState("");
   const [videoError, setVideoError] = useState("");
   const { authAxios }: any = useAxios();
+  const { fetchVideos }: any = useVideo();
 
   const defaultValues = {
     title: initialData.title || undefined,
@@ -92,7 +94,9 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
           "Content-Type": "multipart/form-data",
         },
       });
+      fetchVideos();
       toast.success(response.data.message);
+      setOpen(false);
     } catch (error: any) {
       toast.error(error.response.data.message);
     } finally {

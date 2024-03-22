@@ -1,28 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Routes, Route } from "react-router-dom";
-import AboutPage from "@/pages/about";
-import HomePage from "@/pages/home";
-import RegisterPage from "@/pages/register";
-import LoginPage from "@/pages/login";
-import VideoPage from "@/pages/videos";
-import HomeLayout from "@/layout//home-layout";
 import DashboardLayout from "@/layout/dashboard-layout";
-import SingleVideoPage from "@/pages/video";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import GenreVideoPage from "@/pages/genre-videos";
-import ProfilePage from "@/pages/profile";
-import HistoryPage from "@/pages/history";
-import PublishVideo from "@/admin/pages/add-video";
-import AllPlayers from "@/admin/pages/players";
-import AllVideos from "@/admin/pages/videos";
-import AddPlayer from "@/admin/pages/add-player";
-import AddAdmin from "@/admin/pages/add-admin";
-import AddCoach from "@/admin/pages/add-coach";
-import AllAdmin from "@/admin/pages/admins";
-import AllCoach from "@/admin/pages/coaches";
 import PrivateRoute from "@/components/PrivateRoute";
 import AdminAnalytics from "@/admin/pages/analytics";
+import PublishVideo from "@/admin/pages/add-video";
+import GenreVideoPage from "@/pages/genre-videos";
+import { Routes, Route } from "react-router-dom";
+import AddPlayer from "@/admin/pages/add-player";
+import HomeLayout from "@/layout//home-layout";
+import AllPlayers from "@/admin/pages/players";
+import AddAdmin from "@/admin/pages/add-admin";
+import AddCoach from "@/admin/pages/add-coach";
+import AllVideos from "@/admin/pages/videos";
+import AllCoach from "@/admin/pages/coaches";
+import AllAdmin from "@/admin/pages/admins";
+import SingleVideoPage from "@/pages/video";
+import RegisterPage from "@/pages/register";
+import ProfilePage from "@/pages/profile";
+import HistoryPage from "@/pages/history";
 import NotFound from "@/pages/not-found";
+import LoginPage from "@/pages/login";
+import HomePage from "@/pages/home";
 
 function AppRoutes() {
   return (
@@ -31,8 +29,6 @@ function AppRoutes() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/videos" element={<VideoPage />} />
         <Route path="/videos/:slug" element={<SingleVideoPage />} />
         <Route path="/videos/genre/:slug" element={<GenreVideoPage />} />
         <Route element={<ProtectedRoute />}>

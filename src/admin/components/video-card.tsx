@@ -11,62 +11,53 @@ import { Eye, EyeOff, PenBox, Trash } from "lucide-react";
 import { Fragment, useState } from "react";
 import ReactPlayer from "react-player";
 import EditVideo from "../pages/edit-video";
-import toast from "react-hot-toast";
-import useAxios from "@/hooks/useAxios";
+import { useVideo } from "@/hooks/useVideo";
+import { DeleteDialog } from "./delete-modal";
+import { ConfirmDialog } from "./confirm-modal";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default function DashboardVideoCard({ video }: any) {
   const [open, setOpen] = useState(false);
-  const { authAxios }: any = useAxios();
-
-  const makePublishHidden = async (videoId: string) => {
-    toast.promise(authAxios.put("/video/toggle", { videoId }), {
-      loading: "Updating...",
-      success: (response: any) => {
-        return response.data.message;
-      },
-      error: (error) => {
-        console.log(error);
-        return error.response.data.message;
-      },
-    });
-  };
-
-  const deleteVideo = async (videoId: string) => {
-    toast.promise(authAxios.delete("/video", { data: { videoId } }), {
-      loading: "Deleting...",
-      success: (response: any) => {
-        return response.data.message;
-      },
-      error: (error) => {
-        return error.response.data.error;
-      },
-    });
-  };
+  const [isOpen, setIsOpen] = useState(false);
+  const [isConfirmMdlOpen, setIsConfirmMdlOpen] = useState(false);
+  const { makePublishHidden, deleteVideo }: any = useVideo();
 
   return (
     <Fragment key={video._id}>
       <EditVideo open={open} setOpen={setOpen} initialData={video} />
+      <DeleteDialog
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        action={() => deleteVideo(video._id)}
+      />
+      <ConfirmDialog
+        title={`Are you want to ${
+          video.isPublished ? "hide" : "publish"
+        } the video?`}
+        isOpen={isConfirmMdlOpen}
+        setIsOpen={setIsConfirmMdlOpen}
+        action={() => makePublishHidden(video._id)}
+      />
       <ContextMenu key={video._id}>
         <ContextMenuTrigger>
           <article
             key={video._id}
             className={cn(
-              "rounded-xl overflow-hidden border",
+              "w-full max-w-fit rounded-xl overflow-hidden border",
               video.isPublished ? "bg-green-50" : "bg-rose-50"
             )}
           >
-            <div className="w-full overflow-hidden">
+            <div className="max-w-fit overflow-hidden bg-red-100">
               <ReactPlayer
                 width="100%"
-                height="auto"
+                height="100%"
                 controls={true}
                 url={video.playBackUrl}
               />
             </div>
             <div className="p-3">
               <h1 className="text-xl font-semibold">{video.title}</h1>
-              <p className="font-light text-sm py-1 truncate">
+              <p className="max-w-sm font-light text-sm py-1 truncate">
                 {video.description}
               </p>
               <div className="mt-3 inline-flex items-center gap-2">
@@ -90,7 +81,7 @@ export default function DashboardVideoCard({ video }: any) {
           <ContextMenuItem
             inset
             className="gap-2"
-            onClick={() => makePublishHidden(video._id)}
+            onClick={() => setIsConfirmMdlOpen(true)}
           >
             {!video.isPublished ? (
               <Fragment>
@@ -117,7 +108,7 @@ export default function DashboardVideoCard({ video }: any) {
           <ContextMenuItem
             inset
             className="text-rose-500 gap-2"
-            onClick={() => deleteVideo(video._id)}
+            onClick={() => setIsOpen(true)}
           >
             <Trash size={16} />
             Delete

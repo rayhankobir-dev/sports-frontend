@@ -11,71 +11,38 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/lib/utils/ui/popover";
-import SpinerLoading from "@/components/spiner-loading";
 import { Fragment, useCallback, useEffect, useState } from "react";
-import SectionBg from "@/assets/section-bg.jpeg";
+import SpinerLoading from "@/components/spiner-loading";
+import NotFound from "@/assets/vector/not-found.svg";
+import RatingInput from "@/components/rating-input";
 import { Link, useParams } from "react-router-dom";
-import toast from "react-hot-toast";
-import useAuth from "@/hooks/useAuth";
-import ReactPlayer from "react-player";
-import RatingView from "@/components/rating";
+import SectionBg from "@/assets/section-bg.jpeg";
+import VideoCard from "@/components/video-card";
 import { Button } from "@/lib/utils/ui/button";
 import { LuBadgeCheck } from "react-icons/lu";
+import RatingView from "@/components/rating";
 import useAxios from "@/hooks/useAxios";
-import VideoCard from "@/components/video-card";
-import RatingInput from "@/components/rating-input";
-import NotFound from "@/assets/vector/not-found.svg";
+import ReactPlayer from "react-player";
+import useAuth from "@/hooks/useAuth";
+import { useVideo } from "@/hooks/useVideo";
 
 export default function SingleVideoPage() {
+  const [loading, setLoading] = useState(true);
   const [video, setVideo]: any = useState({});
   const [relatedVideos, setRelatedVideos]: any = useState({});
-  const [isPracticed, setIsPracticed] = useState(false);
-  const [isRated, setIsRated] = useState(false);
   const [rating, setRating] = useState(1);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { publicAxios, authAxios }: any = useAxios();
   const { auth }: any = useAuth();
   const { slug } = useParams();
-
-  const markePractice = async () => {
-    toast.promise(
-      authAxios.post("/video/practiced", {
-        videoId: video._id,
-      }),
-      {
-        loading: "Saving...",
-        success: (response: any) => {
-          setIsPracticed(true);
-          return response.data.message;
-        },
-        error: (error) => {
-          return error.response.data.message;
-        },
-      }
-    );
-  };
+  const { isPracticed, isRated, markAsPracticed, rateVideo }: any = useVideo();
 
   const onRatingChange = (value: number) => {
     setRating(value);
   };
 
   const handleRatingSubmit = async () => {
-    toast.promise(
-      authAxios.post("/video/rate", {
-        rating,
-        videoId: video._id,
-      }),
-      {
-        loading: "Writing...",
-        success: (response: any) => {
-          return response.data.message;
-        },
-        error: (error) => {
-          return error.response.data.message;
-        },
-      }
-    );
+    rateVideo(video._id, rating);
   };
 
   const fetchVideo = useCallback(async () => {
@@ -84,14 +51,6 @@ export default function SingleVideoPage() {
       const { video, relatedVideos } = response.data.data;
       setVideo(video);
       setRelatedVideos(relatedVideos);
-      setIsRated(isPracticed);
-
-      if (auth.isAuth) {
-        const isPracticed = auth.user?.practiceList?.some((practice: any) => {
-          return practice._id.toString() === video._id.toString();
-        });
-        setIsPracticed(isPracticed);
-      }
 
       setError(null);
     } catch (error: any) {
@@ -100,9 +59,8 @@ export default function SingleVideoPage() {
     } finally {
       setLoading(false);
     }
-  }, [slug, publicAxios, auth, isPracticed]);
+  }, [slug, publicAxios]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateWatchHistory = useCallback(async () => {
     try {
       if (auth.isAuth && !loading) {
@@ -163,17 +121,17 @@ export default function SingleVideoPage() {
                     tempora, quo voluptate modi ea.
                   </p>
                 </div>
-                <RatingView rating={Number(video.averageRating)} size={24} />
+                <RatingView rating={4} size={24} />
                 <div className="pt-4">
                   {auth.isAuth && (
                     <Fragment>
-                      {isPracticed ? (
+                      {isPracticed(video._id) ? (
                         <div className="w-full inline-flex item-center justify-between text-green-600">
                           <div className="inline-flex gap-2 items-center">
                             <LuBadgeCheck size={24} />
                             <p>You already practiced</p>
                           </div>
-                          {!isRated && (
+                          {!isRated(video._id) && (
                             <Popover>
                               <PopoverTrigger asChild>
                                 <Button
@@ -213,7 +171,7 @@ export default function SingleVideoPage() {
                         </div>
                       ) : (
                         <Button
-                          onClick={markePractice}
+                          onClick={() => markAsPracticed(video._id)}
                           className="w-fit bg-green-600"
                         >
                           Practiced
