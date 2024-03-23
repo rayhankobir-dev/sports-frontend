@@ -148,7 +148,13 @@ export const VideoProvider = ({ children }: any) => {
       fetchRatedVideos();
       fetchPlalists();
     }
-  }, [fetchVideos]);
+  }, [
+    auth.isAuth,
+    fetchPlalists,
+    fetchPracticeList,
+    fetchRatedVideos,
+    fetchVideos,
+  ]);
 
   const contextValue = {
     loading,

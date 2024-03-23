@@ -76,7 +76,7 @@ export default function AboutPage() {
             </div>
             <div>
               <Button>
-                <Link to="/videos">Check services</Link>
+                <Link to="/">Check services</Link>
               </Button>
             </div>
           </div>

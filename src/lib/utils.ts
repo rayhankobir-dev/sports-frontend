@@ -55,3 +55,12 @@ export function formatTimeAgo(createdAt: string) {
   }
   return Math.floor(seconds) + "sec ago";
 }
+
+export function capitalize(str: string): string {
+  const res: string[] = [];
+  str.split(" ").map((item: string) => {
+    res.push(item.charAt(0).toUpperCase() + item.slice(1));
+  });
+
+  return res.join(" ");
+}

@@ -32,8 +32,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/lib/utils/ui/dialog";
-import ReactPlayer from "react-player";
 import { useVideo } from "@/hooks/useVideo";
+import MediaPreview from "@/components/media-preview";
 
 const formSchema = z.object({
   title: z.string().min(10, {}),
@@ -47,7 +47,7 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
   const [fetching, setFetching] = useState(true);
   const [posting, setPosting] = useState(false);
   const [genres, setGenres] = useState([]);
-  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnail, setThumbnail]: any = useState(null);
   const [thumbnailError, setThumbnailError] = useState("");
   const [video, setVideo] = useState("");
   const [videoError, setVideoError] = useState("");
@@ -162,6 +162,7 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
     setVideo(file);
     validateVideo(file);
   };
+
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogContent>
@@ -288,17 +289,13 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
                     />
                   </div>
                   <div className="w-fit p-2 border border-dashed rounded-lg">
-                    <img
-                      className=" h-auto rounded-sm"
-                      src={thumbnail || initialData.thumbnail}
+                    <MediaPreview
+                      className="h-auto rounded-sm"
+                      file={thumbnail || initialData.thumbnail}
                     />
                   </div>
                   <div className="w-full p-2 border border-dashed rounded-lg">
-                    <ReactPlayer
-                      width="100%"
-                      height="auto"
-                      url={video || initialData.playBackUrl}
-                    />
+                    <MediaPreview file={video || initialData.playBackUrl} />
                   </div>
                 </div>
 

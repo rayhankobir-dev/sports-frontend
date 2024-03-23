@@ -6,7 +6,7 @@ function HomeLayout() {
   return (
     <>
       <HeaderSection />
-      <main className="px-4 md:container lg:max-w-7xl mx-auto">
+      <main className="min-h-[65vh] px-4 md:container lg:max-w-7xl mx-auto">
         <Outlet />
       </main>
       <FooterSection />

@@ -47,24 +47,6 @@ function HeaderSection() {
             className={({ isActive }) =>
               isActive ? activeLinkClass : defaultLinkClass
             }
-            to="/about"
-          >
-            About
-          </NavLink>
-          <NavLink
-            end={true}
-            className={({ isActive }) =>
-              isActive ? activeLinkClass : defaultLinkClass
-            }
-            to="/videos"
-          >
-            Videos
-          </NavLink>
-          <NavLink
-            end={true}
-            className={({ isActive }) =>
-              isActive ? activeLinkClass : defaultLinkClass
-            }
             to="/videos/genre/defense"
           >
             Defense

@@ -31,16 +31,17 @@ const App = () => {
           isAuth: false,
         });
       }
+
       setLoading(false);
     } catch (error: any) {
-      setLoading(false);
-      console.log(`localStorage Error: ${error.message}`);
       setAuth({
         accessToken: null,
         refreshToken: null,
         user: null,
         isAuth: false,
       });
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -49,7 +50,16 @@ const App = () => {
   }, [loadAuth]);
 
   if (loading) {
-    return <SpinerLoading />;
+    return (
+      <div className="h-screen w-full flex justify-center items-center">
+        <SpinerLoading
+          text="Authenticating..."
+          textHidden={false}
+          size={23}
+          className="text-green-600"
+        />
+      </div>
+    );
   }
 
   return <AppRoutes />;

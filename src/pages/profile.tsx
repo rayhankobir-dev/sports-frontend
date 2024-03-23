@@ -20,6 +20,7 @@ import PersonalInformation from "@/components/profile/profile-info";
 import ChangePassword from "@/components/profile/change-password";
 import { getAvatarFallbackLetter } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function validateImage(selectedImage: any): boolean {
   const maxSize = 5 * 1024 * 1024;
@@ -80,6 +81,11 @@ export default function ProfilePage() {
 
   return (
     <div className="space-y-10 mb-10 mt-5">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Your Profile - Football Drills Platform</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <Card className="grid grid-cols-1 md:grid-cols-5 border-none shadow-none gap-4">
         <Card className="py-4 md:col-span-5 lg:col-span-3 pt-0 overflow-hidden">
           <CardHeader className="relative flex flex-col gap-1 justify-center items-center bg-gray-300 overflow-hidden">

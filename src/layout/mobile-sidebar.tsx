@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sheet, SheetContent, SheetTrigger } from "@/lib/utils/ui/sheet";
 import { Button } from "@/lib/utils/ui/button";
-import { Goal, Home, MenuIcon, ShieldBan, User, Video } from "lucide-react";
+import { Home, MenuIcon, ShieldBan, User } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
 import { Link, NavLink } from "react-router-dom";
@@ -55,40 +55,6 @@ export function MobileSidebar() {
                 >
                   <Home className="mr-2 h-4 w-4" />
                   <span>Home</span>
-                </NavLink>
-
-                <NavLink
-                  end={true}
-                  to="/about"
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                  className={({ isActive }) =>
-                    cn(
-                      "group flex items-center rounded-md mx-2 px-3 py-2.5 text-sm font-medium hover:text-green-600",
-                      isActive ? "text-green-700" : "text-black"
-                    )
-                  }
-                >
-                  <Goal className="mr-2 h-4 w-4" />
-                  <span>About</span>
-                </NavLink>
-
-                <NavLink
-                  end={true}
-                  to="/videos"
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                  className={({ isActive }) =>
-                    cn(
-                      "group flex items-center rounded-md mx-2 px-3 py-2.5 text-sm font-medium hover:text-green-600",
-                      isActive ? "text-green-700" : "text-black"
-                    )
-                  }
-                >
-                  <Video className="mr-2 h-4 w-4" />
-                  <span>Videos</span>
                 </NavLink>
 
                 <NavLink
