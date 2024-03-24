@@ -87,7 +87,7 @@ export default function ProfilePage() {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <Card className="grid grid-cols-1 md:grid-cols-5 border-none shadow-none gap-4">
-        <Card className="py-4 md:col-span-5 lg:col-span-3 pt-0 overflow-hidden">
+        <Card className="py-4 col-span-5 md:col-span-5 lg:col-span-3 pt-0 overflow-hidden">
           <CardHeader className="relative flex flex-col gap-1 justify-center items-center bg-gray-300 overflow-hidden">
             <div className="flex flex-col gap-1 justify-center items-center">
               <div className="relative">
@@ -127,10 +127,10 @@ export default function ProfilePage() {
           <PersonalInformation />
         </Card>
 
-        <Card className="col-span-5 lg:col-span-2 flex lg:flex-col justify-between gap-3 border-none shadow-none">
+        <Card className="col-span-5 lg:col-span-2 flex flex-col md:flex-row  lg:flex-col justify-between gap-3 border-none shadow-none">
           <ChangePassword />
 
-          <Card className="flex-1 py-5 h-fit">
+          <Card className="flex-1 py-5">
             <CardContent>
               <CardTitle>Watch History</CardTitle>
               <CardDescription className="mt-2">

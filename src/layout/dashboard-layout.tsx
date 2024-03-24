@@ -1,6 +1,6 @@
+import { Fragment } from "react";
 import Navbar from "@/layout/navbar";
 import { Sidebar } from "@/layout/sidebar";
-import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 
 function DashboardLayout() {

@@ -3,7 +3,6 @@ import DashboardLayout from "@/layout/dashboard-layout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import PrivateRoute from "@/components/PrivateRoute";
 import AdminAnalytics from "@/admin/pages/analytics";
-import PublishVideo from "@/admin/pages/add-video";
 import GenreVideoPage from "@/pages/genre-videos";
 import { Routes, Route } from "react-router-dom";
 import AddPlayer from "@/admin/pages/add-player";
@@ -42,9 +41,6 @@ function AppRoutes() {
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<AdminAnalytics />} />
             <Route path="/dashboard/video" element={<AllVideos />} />
-            <Route path="/dashboard/video/publish" element={<PublishVideo />} />
-            <Route path="/dashboard/video/:slug" element={<PublishVideo />} />
-
             <Route path="/dashboard/player/" element={<AllPlayers />} />
             <Route path="/dashboard/player/add" element={<AddPlayer />} />
             <Route path="/dashboard/player/edit/:id" element={<AllPlayers />} />

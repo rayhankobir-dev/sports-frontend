@@ -21,7 +21,7 @@ export default function Navbar() {
   const { auth }: any = useAuth();
 
   return (
-    <header className="w-full fixed top-0 left-0 z-[100] supports-backdrop-blur:bg-background/60 border-b flex items-center justify-between px-4 py-2.5 bg-gray-50 dark:bg-gray-800">
+    <header className="w-full fixed top-0 left-0 z-10 supports-backdrop-blur:bg-background/60 border-b flex items-center justify-between px-4 py-2.5 bg-gray-50 dark:bg-gray-800">
       <Link className="flex items-center  text-green-600" to="/">
         <PiSoccerBall className="h-7 w-7" />
         <span className="hidden md:block ml-2 text-xl font-bold">Soccer</span>

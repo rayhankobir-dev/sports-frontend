@@ -50,6 +50,12 @@ function MediaPreview({ className, file, alt }: Props) {
     } finally {
       setLoading(false);
     }
+
+    return () => {
+      setPreview("");
+      setFileType(null);
+      setLoading(true);
+    };
   }, [file]);
 
   return (
@@ -64,7 +70,6 @@ function MediaPreview({ className, file, alt }: Props) {
 
           {file && fileType === "video" && (
             <ReactPlayer
-              controls={true}
               playing={true}
               width="100%"
               height="auto"

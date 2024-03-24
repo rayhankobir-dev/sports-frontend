@@ -10,10 +10,11 @@ import {
 import { Eye, EyeOff, PenBox, Trash } from "lucide-react";
 import { Fragment, useState } from "react";
 import ReactPlayer from "react-player";
-import EditVideo from "../pages/edit-video";
+import EditVideo from "./edit-video";
 import { useVideo } from "@/hooks/useVideo";
-import { DeleteDialog } from "./delete-modal";
-import { ConfirmDialog } from "./confirm-modal";
+import { DeleteDialog } from "../../components/delete-modal";
+import { ConfirmDialog } from "../../components/confirm-modal";
+import { FaCirclePlay } from "react-icons/fa6";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default function DashboardVideoCard({ video }: any) {
@@ -47,12 +48,15 @@ export default function DashboardVideoCard({ video }: any) {
               video.isPublished ? "bg-green-50" : "bg-rose-50"
             )}
           >
-            <div className="max-w-fit overflow-hidden bg-red-100">
+            <div className="max-w-full overflow-hidden bg-red-100">
               <ReactPlayer
                 width="100%"
                 height="100%"
                 controls={true}
                 url={video.playBackUrl}
+                light={<img src={video.thumbnail} alt={video.title} />}
+                playIcon={<FaCirclePlay />}
+                previewTabIndex={4}
               />
             </div>
             <div className="p-3">

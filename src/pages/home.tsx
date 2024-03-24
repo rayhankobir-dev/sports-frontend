@@ -1,5 +1,5 @@
 import MissedChanceGif from "../assets/missed-chances.gif";
-import HomeOutline1 from "../assets/home-outline1.png";
+import HomeOutline1 from "../assets/home-1.png";
 import HomeOutline2 from "../assets/home-outline2.png";
 import HomeOutline3 from "../assets/home-outline3.png";
 import { Button } from "@/lib/utils/ui/button";
@@ -113,8 +113,6 @@ function HomePage() {
         <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
           <img
             src={HomeOutline1}
-            width="550"
-            height="310"
             alt="Image"
             className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
           />

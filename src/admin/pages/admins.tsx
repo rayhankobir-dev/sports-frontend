@@ -7,6 +7,7 @@ import { PlayerTable } from "../components/player-table";
 import { Button } from "@/lib/utils/ui/button";
 import { Separator } from "@/lib/utils/ui/separator";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function AllAdmin() {
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,11 @@ export default function AllAdmin() {
   }, [authAxios]);
   return (
     <section>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>All Admins - Dashboard</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div className="flex justify-between items-center mb-3">
         <Heading title="All Admins" description="All admins are listed here" />
         <Button asChild>

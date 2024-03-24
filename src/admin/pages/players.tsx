@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 import SpinerLoading from "@/components/spiner-loading";
 import useAxios from "@/hooks/useAxios";
 import { Button } from "@/lib/utils/ui/button";
-import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import AddPlayerDialog from "../components/add-player";
 
 export default function AllPlayers() {
   const [loading, setLoading] = useState(true);
   const [players, setPlayers] = useState([]);
+  const [open, setOpen] = useState(false);
   const { authAxios }: any = useAxios();
   useEffect(() => {
     async function fetchPlayers() {
@@ -28,14 +30,19 @@ export default function AllPlayers() {
 
   return (
     <section>
+      <AddPlayerDialog open={open} setOpen={setOpen} />
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>All Players - Dashboard</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
+      <AddPlayerDialog />
       <div className="flex justify-between items-center mb-2">
         <Heading
           title="All Players"
           description="All players are listed here."
         />
-        <Button asChild>
-          <Link to="/dashboard/player/add">Add Player</Link>
-        </Button>
+        <Button onClick={() => setOpen(true)}>Add Player</Button>
       </div>
       <Separator />
       {loading ? (

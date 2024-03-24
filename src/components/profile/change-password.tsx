@@ -73,7 +73,7 @@ export default function ChangePassword() {
   };
 
   return (
-    <Card className="flex-1 py-5 h-fit col-span-2">
+    <Card className="flex-1 py-5 h-fit col-span-5 md:col-span-2">
       <CardContent>
         <CardTitle>Change Your Password</CardTitle>
         <CardDescription className="mt-2">

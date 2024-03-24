@@ -10,21 +10,13 @@ import SpLineAreaChart, {
   SPDataItem,
 } from "@/components/charts/spline-area-chart";
 import GeoChart from "@/components/charts/geo-chart";
-import BarChart from "@/components/charts/bar-chart";
 import PieChart from "@/components/charts/pie-chart";
 import { Fragment, useEffect, useState } from "react";
 import SpinerLoading from "@/components/spiner-loading";
 import useAxios from "@/hooks/useAxios";
-
-const barData: [string, string | number][] = [
-  ["January", 500],
-  ["February", 300],
-  ["March", 600],
-  ["April", 500],
-  ["May", 300],
-  ["June", 700],
-  ["July", 600],
-];
+import { ArrowDownToLine, Eye } from "lucide-react";
+import { ScrollArea } from "@/lib/utils/ui/scroll-area";
+import { Helmet } from "react-helmet";
 
 const spData: SPDataItem[] = [
   { month: "January", impressions: 10000 },
@@ -53,8 +45,14 @@ export default function CoachAnalytics() {
 
     fetAnalytics();
   }, [authAxios]);
+
   return (
     <main className="flex flex-1 flex-col gap-4">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Coach - Dashboard</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
         <div className="space-y-1">
           <h1 className="font-semibold text-lg lg:text-2xl">Coach Dashboard</h1>
@@ -64,7 +62,9 @@ export default function CoachAnalytics() {
         </div>
       </div>
       {loading ? (
-        <SpinerLoading />
+        <div className="h-96 w-full flex justify-center items-center">
+          <SpinerLoading size={30} className="text-green-600" />
+        </div>
       ) : (
         <Fragment>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-2">
@@ -93,7 +93,7 @@ export default function CoachAnalytics() {
               </CardHeader>
               <CardContent>
                 <CardTitle className="text-lg font-bold">
-                  {analytics?.userCount?.player?.count}
+                  {analytics?.watchedUser}
                 </CardTitle>
               </CardContent>
             </Card>
@@ -108,7 +108,9 @@ export default function CoachAnalytics() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardTitle className="text-lg font-bold">2</CardTitle>
+                <CardTitle className="text-lg font-bold">
+                  {analytics.genreCount}
+                </CardTitle>
               </CardContent>
             </Card>
 
@@ -122,7 +124,9 @@ export default function CoachAnalytics() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardTitle className="text-lg font-bold">0.1 Hours</CardTitle>
+                <CardTitle className="text-lg font-bold">
+                  {Number(analytics.watchTime).toFixed(2)} Hours
+                </CardTitle>
               </CardContent>
             </Card>
           </div>
@@ -138,23 +142,54 @@ export default function CoachAnalytics() {
           </Card>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="flex flex-col">
+            <Card className="max-w-full w-full overflow-hidden flex flex-col">
               <CardHeader>
                 <CardDescription>Video Genre Wise</CardDescription>
                 <CardTitle>Total Video</CardTitle>
               </CardHeader>
-              <CardContent className="max-w-full h-96">
+              <CardContent className="w-full h-96 ">
                 <PieChart data={analytics.pieData} />
               </CardContent>
             </Card>
-            <Card className="flex flex-col">
+            <Card className="flex flex-col relative">
               <CardHeader>
-                <CardDescription>Total Revenues</CardDescription>
-                <CardTitle>Revenue Growth</CardTitle>
+                <CardDescription>Mostly Watched Video</CardDescription>
+                <CardTitle>To Watched Videos</CardTitle>
               </CardHeader>
-              <CardContent className="w-full h-96">
-                <BarChart title="Revenues" color="#13ad4c" data={barData} />
-              </CardContent>
+
+              <ScrollArea className="w-full h-96">
+                <CardContent>
+                  {analytics.topVideos.map((video: any) => (
+                    <Card
+                      key={video._id}
+                      className="flex justify-between gap-1 mb-2"
+                    >
+                      <CardHeader className="w-1/3 p-2">
+                        <img src={video.thumbnail} className="rounded-sm" />
+                      </CardHeader>
+                      <CardContent className="w-2/3 flex flex-col p-2">
+                        <CardTitle className="w-full h-7 overflow-hidden text-xl">
+                          {video.title}
+                        </CardTitle>
+                        <CardDescription className="w-full h-8 overflow-hidden text-xs font-light">
+                          {video.description}
+                        </CardDescription>
+                        <CardDescription className="flex items-center gap-4 mt-1 text-gray-500">
+                          <p>Genre: {video.genreName}</p>
+                          <p className="flex gap-1 items-center">
+                            <Eye size={18} /> {video.views} views
+                          </p>
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </CardContent>
+              </ScrollArea>
+              {analytics?.topVideos?.length > 3 && (
+                <div className="w-full flex justify-center py-2  absolute bottom-0 z-[200] text-green-600">
+                  <ArrowDownToLine />
+                </div>
+              )}
             </Card>
           </div>
           <Card className="mb-12">

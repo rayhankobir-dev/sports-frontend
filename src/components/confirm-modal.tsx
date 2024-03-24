@@ -19,7 +19,7 @@ export function ConfirmDialog({
 }: any) {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-[90%] rounded-lg">
         <DialogHeader>
           <DialogTitle>{title || "Are you want to confirm?"}</DialogTitle>
           <DialogDescription>
@@ -27,7 +27,7 @@ export function ConfirmDialog({
               "This actions can not be undo, so please be carefull."}
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="mt-5 sm:justify-end">
+        <DialogFooter className="mt-5 flex gap-2 sm:justify-end">
           <DialogClose asChild>
             <Button type="button" variant="secondary" className="px-8">
               Cancle

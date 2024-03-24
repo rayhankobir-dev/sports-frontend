@@ -52,12 +52,7 @@ const App = () => {
   if (loading) {
     return (
       <div className="h-screen w-full flex justify-center items-center">
-        <SpinerLoading
-          text="Authenticating..."
-          textHidden={false}
-          size={23}
-          className="text-green-600"
-        />
+        <SpinerLoading size={23} className="text-green-600" />
       </div>
     );
   }

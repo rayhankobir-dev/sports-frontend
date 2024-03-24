@@ -1,13 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import SpinerLoading from "@/components/spiner-loading";
-import { Heading } from "@/lib/utils/ui/heading";
-import { Eye, EyeOff, Filter } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
-import { Button } from "@/lib/utils/ui/button";
-import { Link } from "react-router-dom";
-import { Separator } from "@/lib/utils/ui/separator";
-import { Input } from "@/lib/utils/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,12 +9,22 @@ import {
 } from "@/lib/utils/ui/dropdown-menu";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import DashboardVideoCard from "../components/video-card";
+import PublishVideoDialog from "../components/add-video";
+import SpinerLoading from "@/components/spiner-loading";
+import { Fragment, useEffect, useState } from "react";
+import { Separator } from "@/lib/utils/ui/separator";
+import { Eye, EyeOff, Filter } from "lucide-react";
+import { Heading } from "@/lib/utils/ui/heading";
+import { Button } from "@/lib/utils/ui/button";
+import { Input } from "@/lib/utils/ui/input";
 import { useVideo } from "@/hooks/useVideo";
+import { Helmet } from "react-helmet";
 
 export default function AllVideos() {
   const [search, setSearch] = useState("");
   const [sortedVideos, setSortedVideos] = useState([]);
   const { loading, videos, getDashboardVideo }: any = useVideo();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setSortedVideos(getDashboardVideo());
@@ -58,14 +59,18 @@ export default function AllVideos() {
 
   return (
     <section>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>All Videos - Dashboard</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
+      <PublishVideoDialog open={open} setOpen={setOpen} />
       <div className="flex justify-between gap-2 items-center">
         <Heading
           title="All Videos"
           description="These are videos in the database"
         />
-        <Button asChild>
-          <Link to="/dashboard/video/publish">Upload Video</Link>
-        </Button>
+        <Button onClick={() => setOpen(true)}>Upload Video</Button>
       </div>
 
       <Separator className="mt-4" />
@@ -119,7 +124,7 @@ export default function AllVideos() {
             />
           </div>
           {sortedVideos.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-2">
               {sortedVideos?.map((video: any) => (
                 <DashboardVideoCard key={video._id} video={video} />
               ))}
