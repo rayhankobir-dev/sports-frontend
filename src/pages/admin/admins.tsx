@@ -45,7 +45,7 @@ export default function AllAdmin() {
             return response.data.message;
           },
           error: (error) => {
-            return error.response.data.message || error.message;
+            return error?.response?.data?.message || error.message;
           },
         }
       );
@@ -64,7 +64,7 @@ export default function AllAdmin() {
             return response.data.message;
           },
           error: (error) => {
-            return error.response.data.message || error.message;
+            return error?.response?.data?.message || error.message;
           },
         }
       );

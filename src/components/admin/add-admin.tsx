@@ -75,7 +75,7 @@ const AddAdminDialog = ({ open, setOpen, actions, role }: any) => {
         form.reset();
         setAvatar(null);
         toast.success(response.data.message);
-        actions.fetchPlayer();
+        actions.fetchAdmin();
       } catch (error: any) {
         toast.error(error.response.data.message);
       } finally {

@@ -34,6 +34,19 @@ export function Sidebar({ className }: Props) {
             </NavLink>
             <NavLink
               end={true}
+              to="/dashboard/genre"
+              className={({ isActive }) =>
+                cn(
+                  "group flex items-center rounded-md mx-2 px-3 py-2.5 text-sm font-medium hover:bg-green-50 hover:text-accent-foreground",
+                  isActive ? "bg-green-100 text-green-600" : "transparent"
+                )
+              }
+            >
+              <Video className="mr-2 h-4 w-4" />
+              <span>Genres</span>
+            </NavLink>
+            <NavLink
+              end={true}
               to="/dashboard/video"
               className={({ isActive }) =>
                 cn(

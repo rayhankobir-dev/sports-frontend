@@ -38,8 +38,8 @@ const formSchema = z.object({
   fullName: z.string().min(3),
   email: z.string().email({ message: "Please enter valid email address" }),
   genre: z.string().optional(),
-  height: z.string().min(0, { message: "Height is required" }),
-  weight: z.string().min(0, { message: "Weight is required" }),
+  height: z.string().min(1, { message: "Height is required" }),
+  weight: z.string().min(1, { message: "Weight is required" }),
   country: z.string().min(2, { message: "Country is required" }),
 });
 

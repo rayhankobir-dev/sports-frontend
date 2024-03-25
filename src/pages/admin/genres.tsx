@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PlayerTable } from "../../components/admin/player-table";
-import AddPlayerDialog from "@/components/admin/add-player";
 import SpinerLoading from "@/components/spiner-loading";
 import { Separator } from "@/lib/utils/ui/separator";
 import { Heading } from "@/lib/utils/ui/heading";
@@ -9,38 +7,40 @@ import { useEffect, useState } from "react";
 import useAxios from "@/hooks/useAxios";
 import { Helmet } from "react-helmet";
 import toast from "react-hot-toast";
+import CreateGenre from "@/components/admin/add-genre";
+import { GenreTable } from "@/components/admin/genre-table";
 
-export default function AllCoach() {
+export default function AllGenres() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [coaches, setCoaches] = useState([]);
+  const [genres, setGenres] = useState([]);
   const { authAxios }: any = useAxios();
   useEffect(() => {
-    actions.fetchCoach();
+    actions.fetchGenre();
   }, []);
 
   const actions = {
-    fetchCoach: async () => {
+    fetchGenre: async () => {
       try {
-        const response = await authAxios.get("/user/coach");
-        setCoaches(response.data.data);
+        const response = await authAxios.get("/genre");
+        setGenres(response.data.data.genres);
       } catch (error) {
         console.log(error);
       } finally {
         setLoading(false);
       }
     },
-    deleteUser: async (id: string) => {
+    deleteGenre: async (genreId: string) => {
       toast.promise(
-        authAxios.delete("/user", {
+        authAxios.delete("/genre", {
           data: {
-            user: id,
+            genreId,
           },
         }),
         {
           loading: "Deleting...",
           success: (response: any) => {
-            actions.fetchCoach();
+            actions.fetchGenre();
             return response.data.message;
           },
           error: (error) => {
@@ -49,17 +49,15 @@ export default function AllCoach() {
         }
       );
     },
-    createUser: async (formData: any) => {
+    createGenre: async (name: string) => {
       toast.promise(
-        authAxios.post("/user/create", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+        authAxios.post("/genre", {
+          name,
         }),
         {
           loading: "Creating",
           success: (response: any) => {
-            actions.fetchCoach();
+            setGenres(response.data.data.genres);
             return response.data.message;
           },
           error: (error) => {
@@ -72,24 +70,15 @@ export default function AllCoach() {
 
   return (
     <section>
-      <AddPlayerDialog
-        title="Add New Coach"
-        role="coach"
-        open={open}
-        setOpen={setOpen}
-        actions={actions}
-      />
+      <CreateGenre open={open} setOpen={setOpen} actions={actions} />
       <Helmet>
         <meta charSet="utf-8" />
-        <title>All Coaches - Dashboard</title>
+        <title>All Genres - Dashboard</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <div className="flex justify-between items-center mb-2">
-        <Heading
-          title="All Coaches"
-          description="All players are listed here."
-        />
-        <Button onClick={() => setOpen(true)}>Add Coach</Button>
+        <Heading title="All Genres" description="All Genres are listed here." />
+        <Button onClick={() => setOpen(true)}>New Genre</Button>
       </div>
       <Separator />
       {loading ? (
@@ -97,7 +86,7 @@ export default function AllCoach() {
           <SpinerLoading size={30} className="text-green-500" />
         </div>
       ) : (
-        <PlayerTable data={coaches} actions={actions} />
+        <GenreTable data={genres} actions={actions} />
       )}
     </section>
   );

@@ -130,6 +130,22 @@ export function MobileSidebar() {
                         </NavLink>
                         <NavLink
                           end={true}
+                          to="/dashboard/genre"
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          className={({ isActive }) =>
+                            cn(
+                              "group flex items-center rounded-md mx-2 px-3 py-2.5 text-sm font-medium hover:text-green-600",
+                              isActive ? "text-green-700" : "text-black"
+                            )
+                          }
+                        >
+                          <User className="mr-2 h-4 w-4" />
+                          <span>Genres</span>
+                        </NavLink>
+                        <NavLink
+                          end={true}
                           to="/dashboard/video"
                           onClick={() => {
                             setOpen(false);

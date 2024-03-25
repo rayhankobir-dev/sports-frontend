@@ -88,7 +88,7 @@ const AddPlayer = () => {
         });
         toast.success(response.data.message);
       } catch (error: any) {
-        toast.error(error.response.data.message);
+        toast.error(error?.response?.data?.message);
       } finally {
         setPosting(false);
       }
