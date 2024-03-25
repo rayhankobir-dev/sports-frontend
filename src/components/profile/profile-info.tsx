@@ -91,7 +91,11 @@ export default function PersonalInformation() {
   const onSubmit = async (data: FormValues) => {
     try {
       setUpdating(true);
-      const response = await authAxios.put("/user/update-profile", data);
+      const response = await authAxios.put("/user/update-profile", {
+        ...data,
+        height: parseFloat(data.height),
+        weight: parseFloat(data.weight),
+      });
       toast.success(response.data.message);
       const res = await authAxios.get("/user/profile");
 
