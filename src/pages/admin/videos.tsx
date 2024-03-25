@@ -8,8 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/lib/utils/ui/dropdown-menu";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
-import DashboardVideoCard from "../components/video-card";
-import PublishVideoDialog from "../components/add-video";
+import DashboardVideoCard from "../../components/admin/video-card";
+import PublishVideoDialog from "../../components/admin/add-video";
 import SpinerLoading from "@/components/spiner-loading";
 import { Fragment, useEffect, useState } from "react";
 import { Separator } from "@/lib/utils/ui/separator";

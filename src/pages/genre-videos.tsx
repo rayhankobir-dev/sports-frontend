@@ -32,7 +32,7 @@ const GenreVideoPage = () => {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
 
-      <section className="py-10">
+      <section className="pt-5">
         <div className="space-y-2 py-4">
           <h2 className="text-3xl font-bold capitalize">{slug} Drills</h2>
           <p className="">

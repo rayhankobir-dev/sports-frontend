@@ -1,13 +1,13 @@
 import MissedChanceGif from "../assets/missed-chances.gif";
 import HomeOutline1 from "../assets/home-1.png";
-import HomeOutline2 from "../assets/home-outline2.png";
-import HomeOutline3 from "../assets/home-outline3.png";
+import HomeOutline2 from "../assets/home-2.png";
+import HomeOutline3 from "../assets/home-2.png";
 import { Button } from "@/lib/utils/ui/button";
-import { Link } from "react-router-dom";
-import { Badge } from "@/lib/utils/ui/badge";
-import { Fragment } from "react";
 import { CheckCircleIcon } from "lucide-react";
+import { Badge } from "@/lib/utils/ui/badge";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { Fragment } from "react";
 
 const clipPath =
   "clipPath: polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%,52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%,74.1% 44.1%)";

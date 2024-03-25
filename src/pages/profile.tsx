@@ -1,12 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/lib/utils/ui/card";
+import { Card, CardHeader, CardTitle } from "@/lib/utils/ui/card";
 import { Image } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/lib/utils/ui/avatar";
 import { Button } from "@/lib/utils/ui/button";
@@ -19,8 +12,8 @@ import useAxios from "@/hooks/useAxios";
 import PersonalInformation from "@/components/profile/profile-info";
 import ChangePassword from "@/components/profile/change-password";
 import { getAvatarFallbackLetter } from "@/lib/utils";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import HistoryCard from "@/components/history-card";
 
 function validateImage(selectedImage: any): boolean {
   const maxSize = 5 * 1024 * 1024;
@@ -130,29 +123,7 @@ export default function ProfilePage() {
         <Card className="col-span-5 lg:col-span-2 flex flex-col md:flex-row  lg:flex-col justify-between gap-3 border-none shadow-none">
           <ChangePassword />
 
-          <Card className="flex-1 py-5">
-            <CardContent>
-              <CardTitle>Watch History</CardTitle>
-              <CardDescription className="mt-2">
-                These are video recent history.
-              </CardDescription>
-            </CardContent>
-            <CardFooter className="flex flex-col py-0 overflow-hidden gap-2">
-              {auth.user?.watchHistory?.map((video: any) => (
-                <Link
-                  key={video?._id}
-                  to={`/videos/${video?.slug}`}
-                  className="w-full flex gap-3 bg-gray-50 rounded-md p-1"
-                >
-                  <img className="w-14 rounded-sm" src={video?.thumbnail} />
-                  <div>
-                    <h3>{video?.title}</h3>
-                    <p>{video?.dutation}</p>
-                  </div>
-                </Link>
-              ))}
-            </CardFooter>
-          </Card>
+          <HistoryCard />
         </Card>
       </Card>
     </div>

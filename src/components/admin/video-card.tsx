@@ -12,8 +12,8 @@ import { Fragment, useState } from "react";
 import ReactPlayer from "react-player";
 import EditVideo from "./edit-video";
 import { useVideo } from "@/hooks/useVideo";
-import { DeleteDialog } from "../../components/delete-modal";
-import { ConfirmDialog } from "../../components/confirm-modal";
+import { DeleteDialog } from "../delete-modal";
+import { ConfirmDialog } from "../confirm-modal";
 import { FaCirclePlay } from "react-icons/fa6";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

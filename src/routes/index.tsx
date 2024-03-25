@@ -2,17 +2,17 @@
 import DashboardLayout from "@/layout/dashboard-layout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import PrivateRoute from "@/components/PrivateRoute";
-import AdminAnalytics from "@/admin/pages/analytics";
+import AdminAnalytics from "@/pages/admin/analytics";
 import GenreVideoPage from "@/pages/genre-videos";
 import { Routes, Route } from "react-router-dom";
-import AddPlayer from "@/admin/pages/add-player";
+import AddPlayer from "@/pages/admin/add-player";
 import HomeLayout from "@/layout//home-layout";
-import AllPlayers from "@/admin/pages/players";
-import AddAdmin from "@/admin/pages/add-admin";
-import AddCoach from "@/admin/pages/add-coach";
-import AllVideos from "@/admin/pages/videos";
-import AllCoach from "@/admin/pages/coaches";
-import AllAdmin from "@/admin/pages/admins";
+import AllPlayers from "@/pages/admin/players";
+import AddAdmin from "@/pages/admin/add-admin";
+import AddCoach from "@/pages/admin/add-coach";
+import AllVideos from "@/pages/admin/videos";
+import AllCoach from "@/pages/admin/coaches";
+import AllAdmin from "@/pages/admin/admins";
 import SingleVideoPage from "@/pages/video";
 import RegisterPage from "@/pages/register";
 import ProfilePage from "@/pages/profile";
@@ -31,7 +31,9 @@ function AppRoutes() {
         <Route path="/videos/:slug" element={<SingleVideoPage />} />
         <Route path="/videos/genre/:slug" element={<GenreVideoPage />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="/playlist" element={<HistoryPage />} />
+          <Route element={<PrivateRoute permission={["player"]} />}>
+            <Route path="/playlist" element={<HistoryPage />} />
+          </Route>
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
         <Route path="*" element={<NotFound />} />

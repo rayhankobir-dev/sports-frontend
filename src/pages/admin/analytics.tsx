@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import AdminAnalytics from "../components/admin-analytics";
-import CoachAnalytics from "../components/coach-analytic";
+import AdminAnalytics from "../../components/admin/admin-analytics";
+import CoachAnalytics from "../../components/admin/coach-analytic";
 import useAuth from "@/hooks/useAuth";
 
 export default function Analytics() {

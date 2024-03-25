@@ -15,8 +15,40 @@ export const VideoProvider = ({ children }: any) => {
   const { publicAxios, authAxios }: any = useAxios();
   const { auth }: any = useAuth();
 
-  const addVideoToPlaylist = (videoId: string, playlistId: string) => {
-    console.log(videoId, playlistId);
+  const addToPlaylist = async (videoId: string) => {
+    toast.promise(
+      authAxios.put("/user/playlist", {
+        videoId,
+      }),
+      {
+        loading: "Adding...",
+        success: (response: any) => {
+          setPlaylists(response.data.data.playlists);
+          return response.data.message;
+        },
+        error: (error) => {
+          return error.response.data.message || error.message;
+        },
+      }
+    );
+  };
+
+  const removeToPlaylist = async (videoId: string) => {
+    toast.promise(
+      authAxios.delete("/user/playlist", {
+        data: { videoId },
+      }),
+      {
+        loading: "Removing...",
+        success: (response: any) => {
+          setPlaylists(response.data.data.playlists);
+          return response.data.message;
+        },
+        error: (error) => {
+          return error.response.data.message || error.message;
+        },
+      }
+    );
   };
 
   const markAsPracticed = (videoId: string) => {
@@ -35,6 +67,10 @@ export const VideoProvider = ({ children }: any) => {
         },
       }
     );
+  };
+
+  const isFavorite = (videoId: string) => {
+    return playlists.some((item: any) => item._id.toString() === videoId);
   };
 
   const isRated = (videoId: string) => {
@@ -102,14 +138,16 @@ export const VideoProvider = ({ children }: any) => {
     }
   };
 
-  const fetchPlalists = useCallback(async () => {
+  const fetchPlaylists = useCallback(async () => {
     try {
-      const response = await authAxios.get("/user/practicelist");
-      setPlaylists(response.data.data.practiceList);
+      if (auth.isAuth && auth.user.role.role === "player") {
+        const response = await authAxios.get("/user/playlist");
+        setPlaylists(response.data.data.playlists);
+      }
     } catch (error) {
       console.log(error);
     }
-  }, [authAxios]);
+  }, [auth, authAxios]);
 
   const fetchPracticeList = useCallback(async () => {
     try {
@@ -135,22 +173,24 @@ export const VideoProvider = ({ children }: any) => {
       setVideos(response.data.data.videos);
     } catch (error: any) {
       console.log(error.response.data);
-    } finally {
-      setLoading(false);
     }
   }, [publicAxios]);
 
   useEffect(() => {
-    fetchVideos();
-
-    if (auth.isAuth) {
-      fetchPracticeList();
-      fetchRatedVideos();
-      fetchPlalists();
+    async function init() {
+      await fetchVideos();
+      if (auth.isAuth) {
+        await fetchPracticeList();
+        await fetchRatedVideos();
+        await fetchPlaylists();
+      }
+      setLoading(false);
     }
+
+    init();
   }, [
     auth.isAuth,
-    fetchPlalists,
+    fetchPlaylists,
     fetchPracticeList,
     fetchRatedVideos,
     fetchVideos,
@@ -160,13 +200,15 @@ export const VideoProvider = ({ children }: any) => {
     loading,
     setLoading,
     videos,
+    isFavorite,
     isRated,
     isPracticed,
     playlists,
     practicedVideos,
     ratedVideos,
     fetchVideos,
-    addVideoToPlaylist,
+    addToPlaylist,
+    removeToPlaylist,
     markAsPracticed,
     rateVideo,
     makePublishHidden,

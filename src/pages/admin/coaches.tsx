@@ -1,23 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Heading } from "@/lib/utils/ui/heading";
 import { Separator } from "@/lib/utils/ui/separator";
-import { PlayerTable } from "../components/player-table";
+import { PlayerTable } from "../../components/admin/player-table";
 import { useEffect, useState } from "react";
 import SpinerLoading from "@/components/spiner-loading";
 import useAxios from "@/hooks/useAxios";
 import { Button } from "@/lib/utils/ui/button";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import AddPlayerDialog from "../components/add-player";
 
-export default function AllPlayers() {
+export default function AllCoach() {
   const [loading, setLoading] = useState(true);
   const [players, setPlayers] = useState([]);
-  const [open, setOpen] = useState(false);
   const { authAxios }: any = useAxios();
   useEffect(() => {
     async function fetchPlayers() {
       try {
-        const response = await authAxios.get("/user/player");
+        const response = await authAxios.get("/user/coach");
         setPlayers(response.data.data);
       } catch (error) {
         console.log(error);
@@ -30,19 +29,19 @@ export default function AllPlayers() {
 
   return (
     <section>
-      <AddPlayerDialog open={open} setOpen={setOpen} />
       <Helmet>
         <meta charSet="utf-8" />
-        <title>All Players - Dashboard</title>
+        <title>All Coaches - Dashboard</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      <AddPlayerDialog />
       <div className="flex justify-between items-center mb-2">
         <Heading
-          title="All Players"
+          title="All Coaches"
           description="All players are listed here."
         />
-        <Button onClick={() => setOpen(true)}>Add Player</Button>
+        <Button asChild>
+          <Link to="/dashboard/coach/add">Add Coach</Link>
+        </Button>
       </div>
       <Separator />
       {loading ? (

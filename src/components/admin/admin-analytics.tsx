@@ -6,9 +6,6 @@ import {
   CardContent,
   Card,
 } from "@/lib/utils/ui/card";
-import SpLineAreaChart, {
-  SPDataItem,
-} from "@/components/charts/spline-area-chart";
 import GeoChart from "@/components/charts/geo-chart";
 import PieChart from "@/components/charts/pie-chart";
 import { Fragment, useEffect, useState } from "react";
@@ -17,14 +14,6 @@ import useAxios from "@/hooks/useAxios";
 import { ScrollArea } from "@/lib/utils/ui/scroll-area";
 import { Eye } from "lucide-react";
 import { Helmet } from "react-helmet";
-
-const spData: SPDataItem[] = [
-  { month: "January", impressions: 10000 },
-  { month: "February", impressions: 12000 },
-  { month: "March", impressions: 15000 },
-  { month: "April", impressions: 1000 },
-  { month: "May", impressions: 12000 },
-];
 
 export default function AdminAnalytics() {
   const [loading, setLoading] = useState(true);
@@ -123,16 +112,6 @@ export default function AdminAnalytics() {
               </CardContent>
             </Card>
           </div>
-
-          <Card className="space-y-2">
-            <CardHeader>
-              <CardDescription>Listener Demographics</CardDescription>
-              <CardTitle>Content Impressions</CardTitle>
-            </CardHeader>
-            <CardContent className="h-48">
-              <SpLineAreaChart showY={false} data={spData} />
-            </CardContent>
-          </Card>
 
           <div className="grid md:grid-cols-2 gap-6">
             <Card className="flex flex-col">

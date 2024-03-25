@@ -6,9 +6,6 @@ import {
   CardContent,
   Card,
 } from "@/lib/utils/ui/card";
-import SpLineAreaChart, {
-  SPDataItem,
-} from "@/components/charts/spline-area-chart";
 import GeoChart from "@/components/charts/geo-chart";
 import PieChart from "@/components/charts/pie-chart";
 import { Fragment, useEffect, useState } from "react";
@@ -17,14 +14,6 @@ import useAxios from "@/hooks/useAxios";
 import { ArrowDownToLine, Eye } from "lucide-react";
 import { ScrollArea } from "@/lib/utils/ui/scroll-area";
 import { Helmet } from "react-helmet";
-
-const spData: SPDataItem[] = [
-  { month: "January", impressions: 10000 },
-  { month: "February", impressions: 12000 },
-  { month: "March", impressions: 15000 },
-  { month: "April", impressions: 1000 },
-  { month: "May", impressions: 12000 },
-];
 
 export default function CoachAnalytics() {
   const [loading, setLoading] = useState(true);
@@ -131,16 +120,6 @@ export default function CoachAnalytics() {
             </Card>
           </div>
 
-          <Card className="space-y-2">
-            <CardHeader>
-              <CardDescription>Player Demographics</CardDescription>
-              <CardTitle>Content Impressions</CardTitle>
-            </CardHeader>
-            <CardContent className="h-48">
-              <SpLineAreaChart showY={false} data={spData} />
-            </CardContent>
-          </Card>
-
           <div className="grid md:grid-cols-2 gap-6">
             <Card className="max-w-full w-full overflow-hidden flex flex-col">
               <CardHeader>
@@ -153,7 +132,7 @@ export default function CoachAnalytics() {
             </Card>
             <Card className="flex flex-col relative">
               <CardHeader>
-                <CardDescription>Mostly Watched Video</CardDescription>
+                <CardDescription>Your Mostly Watched Video</CardDescription>
                 <CardTitle>To Watched Videos</CardTitle>
               </CardHeader>
 
@@ -175,10 +154,10 @@ export default function CoachAnalytics() {
                           {video.description}
                         </CardDescription>
                         <CardDescription className="flex items-center gap-4 mt-1 text-gray-500">
-                          <p>Genre: {video.genreName}</p>
-                          <p className="flex gap-1 items-center">
+                          <span>Genre: {video.genreName}</span>
+                          <span className="flex gap-1 items-center">
                             <Eye size={18} /> {video.views} views
-                          </p>
+                          </span>
                         </CardDescription>
                       </CardContent>
                     </Card>

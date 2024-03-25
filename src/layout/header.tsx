@@ -108,22 +108,24 @@ function HeaderSection() {
                         <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
                       </NavLink>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <NavLink
-                        end={true}
-                        to="/playlist"
-                        className={({ isActive }) =>
-                          cn(
-                            "w-full inline-flex items-center justify-between",
-                            isActive ? "text-green-600" : "text-gray-800"
-                          )
-                        }
-                      >
-                        <History className="mr-2 h-4 w-4" />
-                        <span>Playlists</span>
-                        <DropdownMenuShortcut>⌘PL</DropdownMenuShortcut>
-                      </NavLink>
-                    </DropdownMenuItem>
+                    {auth.user.role.role === "player" && (
+                      <DropdownMenuItem>
+                        <NavLink
+                          end={true}
+                          to="/playlist"
+                          className={({ isActive }) =>
+                            cn(
+                              "w-full inline-flex items-center justify-between",
+                              isActive ? "text-green-600" : "text-gray-800"
+                            )
+                          }
+                        >
+                          <History className="mr-2 h-4 w-4" />
+                          <span>Playlists</span>
+                          <DropdownMenuShortcut>⌘PL</DropdownMenuShortcut>
+                        </NavLink>
+                      </DropdownMenuItem>
+                    )}
                     {auth.user.role.role !== "player" && (
                       <DropdownMenuItem>
                         <NavLink

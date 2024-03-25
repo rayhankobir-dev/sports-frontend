@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/lib/utils/ui/dropdown-menu";
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/lib/utils/ui/avatar";
 import { getAvatarFallbackLetter } from "@/lib/utils";
 import { MobileSidebar } from "./mobile-sidebar";
@@ -73,20 +73,6 @@ export function CreatorMenuContent() {
           >
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
-          </NavLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <NavLink
-            to={"/playlist"}
-            className={({ isActive }) =>
-              cn(
-                "w-full cursor-pointer",
-                isActive ? "text-green-600" : "text-gray-800"
-              )
-            }
-          >
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Playlist</span>
           </NavLink>
         </DropdownMenuItem>
       </DropdownMenuGroup>

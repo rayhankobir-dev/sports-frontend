@@ -3,7 +3,7 @@ import SpinerLoading from "@/components/spiner-loading";
 import useAxios from "@/hooks/useAxios";
 import { Heading } from "@/lib/utils/ui/heading";
 import { useEffect, useState } from "react";
-import { PlayerTable } from "../components/player-table";
+import { PlayerTable } from "../../components/admin/player-table";
 import { Button } from "@/lib/utils/ui/button";
 import { Separator } from "@/lib/utils/ui/separator";
 import { Link } from "react-router-dom";
