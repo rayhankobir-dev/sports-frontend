@@ -27,10 +27,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/lib/utils/ui/button";
 import { Label } from "@/lib/utils/ui/label";
 import { Input } from "@/lib/utils/ui/input";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { FileInput } from "../file-input";
 import useAxios from "@/hooks/useAxios";
 import toast from "react-hot-toast";
+import { Icons } from "@/icons";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -42,7 +44,7 @@ const formSchema = z.object({
 
 export type PlayerFormValue = z.infer<typeof formSchema>;
 
-const AddPlayerDialog = ({ open, setOpen }: any) => {
+const AddPlayerDialog = ({ title, open, setOpen, actions, role }: any) => {
   const [avatarError, setAvatarError] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<any>(null);
   const [fetching, setFetching] = useState(true);
@@ -79,6 +81,7 @@ const AddPlayerDialog = ({ open, setOpen }: any) => {
 
   // on submit action
   const onSubmit = async (payload: PlayerFormValue) => {
+    console.log(actions);
     if (validateImage(avatar, setAvatarError)) {
       try {
         setPosting(true);
@@ -88,39 +91,29 @@ const AddPlayerDialog = ({ open, setOpen }: any) => {
         formData.append("password", payload.password);
         formData.append("genre", payload.genre);
         formData.append("avatar", avatar);
-        formData.append("role", "player");
+        formData.append("role", role);
 
-        const response = await authAxios.post("/user/create", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        actions.createUser(formData);
 
         setOpen(false);
         form.reset();
         setAvatar(null);
-        toast.success(response.data.message);
       } catch (error: any) {
-        toast.error(error.response.data.message);
+        console.log(error);
+        toast.error(error.message);
       } finally {
         setPosting(false);
       }
     }
   };
 
-  const handleImageChange = (event: any) => {
-    const file = event.target.files[0];
-    setAvatar(file);
-    validateImage(file, setAvatarError);
-  };
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="max-w-[95%] h-fit  md:max-w-lg rounded-xl">
         <DialogHeader>
-          <DialogTitle>Add New Player</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+          <DialogTitle className="text-left">{title}</DialogTitle>
+          <DialogDescription className="text-left">
+            Please fill all information and create a new user.
           </DialogDescription>
         </DialogHeader>
 
@@ -238,12 +231,13 @@ const AddPlayerDialog = ({ open, setOpen }: any) => {
                   <div className="md:col-span-2">
                     <FormItem>
                       <Label>Avatar</Label>
-                      <Input
-                        name="avatar"
-                        type="file"
-                        className="cols-span-1 h-20 rounded-xl"
-                        onChange={handleImageChange}
-                        placeholder="Upload your content thumbnail"
+                      <FileInput
+                        fieldName="avatar"
+                        maxSize={500000000}
+                        setError={setAvatarError}
+                        setOnChange={setAvatar}
+                        supportedExtensions={["png", "jpg", "jpeg", "webp"]}
+                        Icon={Icons.image}
                       />
                       <Label className="font-light text-rose-500">
                         {avatarError && avatarError}

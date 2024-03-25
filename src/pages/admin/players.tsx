@@ -8,6 +8,7 @@ import useAxios from "@/hooks/useAxios";
 import { Button } from "@/lib/utils/ui/button";
 import { Helmet } from "react-helmet";
 import AddPlayerDialog from "../../components/admin/add-player";
+import toast from "react-hot-toast";
 
 export default function AllPlayers() {
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,11 @@ export default function AllPlayers() {
   const [open, setOpen] = useState(false);
   const { authAxios }: any = useAxios();
   useEffect(() => {
-    async function fetchPlayers() {
+    actions.fetchPlayer();
+  }, []);
+
+  const actions = {
+    fetchPlayer: async () => {
       try {
         const response = await authAxios.get("/user/player");
         setPlayers(response.data.data);
@@ -24,19 +29,61 @@ export default function AllPlayers() {
       } finally {
         setLoading(false);
       }
-    }
-    fetchPlayers();
-  }, [authAxios]);
+    },
+    deleteUser: async (id: string) => {
+      toast.promise(
+        authAxios.delete("/user", {
+          data: {
+            user: id,
+          },
+        }),
+        {
+          loading: "Deleting...",
+          success: (response: any) => {
+            actions.fetchPlayer();
+            return response.data.message;
+          },
+          error: (error) => {
+            return error.response.data.message;
+          },
+        }
+      );
+    },
+    createUser: async (formData: any) => {
+      toast.promise(
+        authAxios.post("/user/create", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }),
+        {
+          loading: "Creating",
+          success: (response: any) => {
+            actions.fetchPlayer();
+            return response.data.message;
+          },
+          error: (error) => {
+            return error.response.data.message || error.message;
+          },
+        }
+      );
+    },
+  };
 
   return (
     <section>
-      <AddPlayerDialog open={open} setOpen={setOpen} />
+      <AddPlayerDialog
+        open={open}
+        setOpen={setOpen}
+        actions={actions}
+        role="player"
+        title="Create New Player"
+      />
       <Helmet>
         <meta charSet="utf-8" />
         <title>All Players - Dashboard</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      <AddPlayerDialog />
       <div className="flex justify-between items-center mb-2">
         <Heading
           title="All Players"
@@ -50,7 +97,7 @@ export default function AllPlayers() {
           <SpinerLoading size={30} className="text-green-500" />
         </div>
       ) : (
-        <PlayerTable data={players} />
+        <PlayerTable data={players} actions={actions} />
       )}
     </section>
   );

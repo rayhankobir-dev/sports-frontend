@@ -122,8 +122,11 @@ export default function ProfilePage() {
 
         <Card className="col-span-5 lg:col-span-2 flex flex-col md:flex-row  lg:flex-col justify-between gap-3 border-none shadow-none">
           <ChangePassword />
-
-          <HistoryCard />
+          {auth.user.role.role === "player" ? (
+            <HistoryCard />
+          ) : (
+            <div className="flex-1 py-5"></div>
+          )}
         </Card>
       </Card>
     </div>

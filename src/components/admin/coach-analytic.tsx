@@ -11,9 +11,8 @@ import PieChart from "@/components/charts/pie-chart";
 import { Fragment, useEffect, useState } from "react";
 import SpinerLoading from "@/components/spiner-loading";
 import useAxios from "@/hooks/useAxios";
-import { ArrowDownToLine, Eye } from "lucide-react";
-import { ScrollArea } from "@/lib/utils/ui/scroll-area";
 import { Helmet } from "react-helmet";
+import TopWatchedCard from "./topwatched-card";
 
 export default function CoachAnalytics() {
   const [loading, setLoading] = useState(true);
@@ -130,46 +129,12 @@ export default function CoachAnalytics() {
                 <PieChart data={analytics.pieData} />
               </CardContent>
             </Card>
-            <Card className="flex flex-col relative">
-              <CardHeader>
-                <CardDescription>Your Mostly Watched Video</CardDescription>
-                <CardTitle>To Watched Videos</CardTitle>
-              </CardHeader>
 
-              <ScrollArea className="w-full h-96">
-                <CardContent>
-                  {analytics.topVideos.map((video: any) => (
-                    <Card
-                      key={video._id}
-                      className="flex justify-between gap-1 mb-2"
-                    >
-                      <CardHeader className="w-1/3 p-2">
-                        <img src={video.thumbnail} className="rounded-sm" />
-                      </CardHeader>
-                      <CardContent className="w-2/3 flex flex-col p-2">
-                        <CardTitle className="w-full h-7 overflow-hidden text-xl">
-                          {video.title}
-                        </CardTitle>
-                        <CardDescription className="w-full h-8 overflow-hidden text-xs font-light">
-                          {video.description}
-                        </CardDescription>
-                        <CardDescription className="flex items-center gap-4 mt-1 text-gray-500">
-                          <span>Genre: {video.genreName}</span>
-                          <span className="flex gap-1 items-center">
-                            <Eye size={18} /> {video.views} views
-                          </span>
-                        </CardDescription>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </CardContent>
-              </ScrollArea>
-              {analytics?.topVideos?.length > 3 && (
-                <div className="w-full flex justify-center py-2  absolute bottom-0 z-[200] text-green-600">
-                  <ArrowDownToLine />
-                </div>
-              )}
-            </Card>
+            <TopWatchedCard
+              title="Top Watched Videos"
+              subTitle="Your Mostly Watched Video"
+              videos={analytics.topVideos}
+            />
           </div>
           <Card className="mb-12">
             <CardHeader>

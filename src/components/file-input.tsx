@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { capitalize, cn } from "@/lib/utils";
 import { Icon } from "@/types";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 interface FileInputProps {
@@ -23,6 +23,8 @@ export function FileInput({
   supportedExtensions,
   Icon,
 }: FileInputProps) {
+  const [selectedFileName, setSelectedFileName] = useState<string>("");
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
@@ -31,6 +33,7 @@ export function FileInput({
           validateFile(fieldName, file, maxSize, supportedExtensions, setError)
         ) {
           setOnChange(file);
+          setSelectedFileName(file.name);
         }
       }
     },
@@ -49,9 +52,13 @@ export function FileInput({
     >
       <input {...getInputProps()} />
       <Icon />
-      <p className="font-light text-sm">
-        Drag 'n' drop some files here, or click to select files
-      </p>
+      {selectedFileName ? (
+        selectedFileName
+      ) : (
+        <p className="font-light text-sm">
+          Drag 'n' drop some files here, or click to select files
+        </p>
+      )}
     </div>
   );
 }

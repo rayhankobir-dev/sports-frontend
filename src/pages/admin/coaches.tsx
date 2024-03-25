@@ -1,34 +1,84 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Heading } from "@/lib/utils/ui/heading";
-import { Separator } from "@/lib/utils/ui/separator";
 import { PlayerTable } from "../../components/admin/player-table";
-import { useEffect, useState } from "react";
+import AddPlayerDialog from "@/components/admin/add-player";
 import SpinerLoading from "@/components/spiner-loading";
-import useAxios from "@/hooks/useAxios";
+import { Separator } from "@/lib/utils/ui/separator";
+import { Heading } from "@/lib/utils/ui/heading";
 import { Button } from "@/lib/utils/ui/button";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import useAxios from "@/hooks/useAxios";
 import { Helmet } from "react-helmet";
+import toast from "react-hot-toast";
 
 export default function AllCoach() {
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [players, setPlayers] = useState([]);
+  const [coaches, setCoaches] = useState([]);
   const { authAxios }: any = useAxios();
   useEffect(() => {
-    async function fetchPlayers() {
+    actions.fetchCoach();
+  }, []);
+
+  const actions = {
+    fetchCoach: async () => {
       try {
         const response = await authAxios.get("/user/coach");
-        setPlayers(response.data.data);
+        setCoaches(response.data.data);
       } catch (error) {
         console.log(error);
       } finally {
         setLoading(false);
       }
-    }
-    fetchPlayers();
-  }, [authAxios]);
+    },
+    deleteUser: async (id: string) => {
+      toast.promise(
+        authAxios.delete("/user", {
+          data: {
+            user: id,
+          },
+        }),
+        {
+          loading: "Deleting...",
+          success: (response: any) => {
+            actions.fetchCoach();
+            return response.data.message;
+          },
+          error: (error) => {
+            return error.response.data.message;
+          },
+        }
+      );
+    },
+    createUser: async (formData: any) => {
+      toast.promise(
+        authAxios.post("/user/create", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }),
+        {
+          loading: "Creating",
+          success: (response: any) => {
+            actions.fetchCoach();
+            return response.data.message;
+          },
+          error: (error) => {
+            return error.response.data.message || error.message;
+          },
+        }
+      );
+    },
+  };
 
   return (
     <section>
+      <AddPlayerDialog
+        title="Add New Coach"
+        role="coach"
+        open={open}
+        setOpen={setOpen}
+        actions={actions}
+      />
       <Helmet>
         <meta charSet="utf-8" />
         <title>All Coaches - Dashboard</title>
@@ -39,9 +89,7 @@ export default function AllCoach() {
           title="All Coaches"
           description="All players are listed here."
         />
-        <Button asChild>
-          <Link to="/dashboard/coach/add">Add Coach</Link>
-        </Button>
+        <Button onClick={() => setOpen(true)}>Add Coach</Button>
       </div>
       <Separator />
       {loading ? (
@@ -49,7 +97,7 @@ export default function AllCoach() {
           <SpinerLoading size={30} className="text-green-500" />
         </div>
       ) : (
-        <PlayerTable data={players} />
+        <PlayerTable data={coaches} actions={actions} />
       )}
     </section>
   );

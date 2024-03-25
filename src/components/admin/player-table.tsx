@@ -11,13 +11,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {
-  ArrowUpDown,
-  ChevronDown,
-  MoreHorizontal,
-  PenBox,
-  Trash,
-} from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Trash } from "lucide-react";
 import { Button } from "@/lib/utils/ui/button";
 import { Checkbox } from "@/lib/utils/ui/checkbox";
 import {
@@ -42,9 +36,8 @@ import React, { useState } from "react";
 import { Avatar, AvatarFallback } from "@/lib/utils/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { formatTimeAgo, getAvatarFallbackLetter } from "@/lib/utils";
-import toast from "react-hot-toast";
-import useAxios from "@/hooks/useAxios";
 import MobileBrowser from "@/assets/vector/mobile-browser.svg";
+import useAuth from "@/hooks/useAuth";
 
 export type Player = {
   _id: string;
@@ -54,12 +47,12 @@ export type Player = {
   role: any;
 };
 
-export function PlayerTable({ data }: any) {
+export function PlayerTable({ data, actions }: any) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { authAxios }: any = useAxios();
+  const { auth }: any = useAuth();
 
   const columns: ColumnDef<Player>[] = [
     {
@@ -160,13 +153,9 @@ export function PlayerTable({ data }: any) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="inline-flex gap-2 w-full">
-                <PenBox size={14} />
-                Edit Player
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => deleteUser(row.original._id)}
+                disabled={row.original._id === auth.user._id.toString()}
+                onClick={() => actions.deleteUser(row.original._id)}
                 className="inline-flex gap-2 w-full text-rose-500"
               >
                 <Trash size={16} /> Delete
@@ -196,25 +185,6 @@ export function PlayerTable({ data }: any) {
       rowSelection,
     },
   });
-
-  const deleteUser = async (id: string) => {
-    toast.promise(
-      authAxios.delete("/user", {
-        data: {
-          user: id,
-        },
-      }),
-      {
-        loading: "Deleting...",
-        success: (response: any) => {
-          return response.data.message;
-        },
-        error: (error) => {
-          return error.response.data.message;
-        },
-      }
-    );
-  };
 
   return (
     <div className="w-full">
@@ -305,10 +275,9 @@ export function PlayerTable({ data }: any) {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
+        <div className="flex gap-4 flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected. - -
-          {table.getPageCount()} pages
+          {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">
           <Button

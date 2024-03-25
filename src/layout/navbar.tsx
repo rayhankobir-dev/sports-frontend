@@ -6,9 +6,10 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/lib/utils/ui/dropdown-menu";
-import { LogOut, User } from "lucide-react";
+import { Home, LogOut, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/lib/utils/ui/avatar";
 import { getAvatarFallbackLetter } from "@/lib/utils";
 import { MobileSidebar } from "./mobile-sidebar";
@@ -61,12 +62,12 @@ export function CreatorMenuContent() {
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem>
           <NavLink
             to={"/profile"}
             className={({ isActive }) =>
               cn(
-                "w-full cursor-pointer",
+                "flex w-full cursor-pointer",
                 isActive ? "text-green-600" : "text-gray-800"
               )
             }
@@ -74,6 +75,14 @@ export function CreatorMenuContent() {
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </NavLink>
+          <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link to="/" className="w-full flex cursor-pointer">
+            <Home className="mr-2 h-4 w-4" />
+            <span>Go Home</span>
+          </Link>
+          <DropdownMenuShortcut>⌘GH</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
