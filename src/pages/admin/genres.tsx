@@ -57,7 +57,7 @@ export default function AllGenres() {
         {
           loading: "Creating",
           success: (response: any) => {
-            setGenres(response.data.data.genres);
+            actions.fetchGenre();
             return response.data.message;
           },
           error: (error) => {

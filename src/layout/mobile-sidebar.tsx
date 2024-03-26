@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sheet, SheetContent, SheetTrigger } from "@/lib/utils/ui/sheet";
-import { Button } from "@/lib/utils/ui/button";
-import { Home, MenuIcon, ShieldBan, User } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
-import useAuth from "@/hooks/useAuth";
-import { Link, NavLink } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { PiSoccerBall } from "react-icons/pi";
+import { Gauge, Home, MenuIcon, ShieldBan, Video } from "lucide-react";
 import { TbSoccerField, TbPlayFootball } from "react-icons/tb";
+import { Fragment, useEffect, useState } from "react";
 import { Separator } from "@/lib/utils/ui/separator";
+import { Link, NavLink } from "react-router-dom";
+import { Button } from "@/lib/utils/ui/button";
+import { PiSoccerBall } from "react-icons/pi";
+import useAuth from "@/hooks/useAuth";
+import { RiAdminLine } from "react-icons/ri";
+import { GiSoccerKick } from "react-icons/gi";
+import { TbCategory2 } from "react-icons/tb";
+import { cn } from "@/lib/utils";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function MobileSidebar() {
@@ -125,7 +129,7 @@ export function MobileSidebar() {
                             )
                           }
                         >
-                          <User className="mr-2 h-4 w-4" />
+                          <Gauge className="mr-2 h-4 w-4" />
                           <span>Dashboard</span>
                         </NavLink>
                         <NavLink
@@ -141,7 +145,7 @@ export function MobileSidebar() {
                             )
                           }
                         >
-                          <User className="mr-2 h-4 w-4" />
+                          <TbCategory2 className="mr-2 h-4 w-4" />
                           <span>Genres</span>
                         </NavLink>
                         <NavLink
@@ -157,7 +161,7 @@ export function MobileSidebar() {
                             )
                           }
                         >
-                          <User className="mr-2 h-4 w-4" />
+                          <Video className="mr-2 h-4 w-4" />
                           <span>Videos</span>
                         </NavLink>
                         <NavLink
@@ -173,7 +177,7 @@ export function MobileSidebar() {
                             )
                           }
                         >
-                          <User className="mr-2 h-4 w-4" />
+                          <GiSoccerKick className="mr-2 h-4 w-4" />
                           <span>Players</span>
                         </NavLink>
                       </Fragment>
@@ -193,7 +197,7 @@ export function MobileSidebar() {
                             )
                           }
                         >
-                          <User className="mr-2 h-4 w-4" />
+                          <FaChalkboardTeacher className="mr-2 h-4 w-4" />
                           <span>Coaches</span>
                         </NavLink>
                         <NavLink
@@ -209,7 +213,7 @@ export function MobileSidebar() {
                             )
                           }
                         >
-                          <User className="mr-2 h-4 w-4" />
+                          <RiAdminLine className="mr-2 h-4 w-4" />
                           <span>Admins</span>
                         </NavLink>
                       </Fragment>

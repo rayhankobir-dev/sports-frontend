@@ -2,11 +2,12 @@
 import { ScrollArea } from "@/lib/utils/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { NavLink } from "react-router-dom";
-import { Gauge, User, Video } from "lucide-react";
-import { TbPlayFootball } from "react-icons/tb";
+import { Gauge, Video } from "lucide-react";
+import { TbCategory2, TbPlayFootball } from "react-icons/tb";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { Fragment } from "react";
 import useAuth from "@/hooks/useAuth";
+import { RiAdminLine } from "react-icons/ri";
 
 interface Props {
   className: string;
@@ -42,7 +43,7 @@ export function Sidebar({ className }: Props) {
                 )
               }
             >
-              <Video className="mr-2 h-4 w-4" />
+              <TbCategory2 className="mr-2 h-4 w-4" />
               <span>Genres</span>
             </NavLink>
             <NavLink
@@ -96,7 +97,7 @@ export function Sidebar({ className }: Props) {
                     )
                   }
                 >
-                  <User className="mr-2 h-4 w-4" />
+                  <RiAdminLine className="mr-2 h-4 w-4" />
                   <span>Admins</span>
                 </NavLink>
               </Fragment>

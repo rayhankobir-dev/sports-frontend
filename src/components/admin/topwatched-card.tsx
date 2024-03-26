@@ -17,7 +17,7 @@ export default function TopWatchedCard({ title, subTitle, videos }: any) {
         <CardTitle>{title}</CardTitle>
       </CardHeader>
 
-      <ScrollArea className="w-full h-96">
+      <ScrollArea className="w-full h-full md:h-96">
         <CardContent>
           {videos.map((video: any) => (
             <Card key={video._id} className="flex justify-between gap-1 mb-2">
@@ -25,16 +25,16 @@ export default function TopWatchedCard({ title, subTitle, videos }: any) {
                 <img src={video.thumbnail} className="rounded-sm" />
               </CardHeader>
               <CardContent className="w-2/3 flex flex-col p-2">
-                <CardTitle className="w-full h-7 overflow-hidden text-xl">
+                <CardTitle className="w-full h-7 overflow-hidden text-md md:text-xl">
                   <Link to={`/videos/${video?.slug}`}>{video.title}</Link>
                 </CardTitle>
                 <CardDescription className="w-full h-8 overflow-hidden text-xs font-light">
                   {video.description}
                 </CardDescription>
-                <CardDescription className="flex items-center gap-4 mt-1 text-gray-500">
+                <CardDescription className="flex items-center gap-4 mt-1 text-gray-500 text-xs md:textsm">
                   <span>Genre: {video.genreName}</span>
-                  <span className="flex gap-1 items-center">
-                    <Eye size={18} /> {video.views} views
+                  <span className="min-w-fit flex gap-1 items-center">
+                    <Eye size={18} /> {video.views}
                   </span>
                 </CardDescription>
               </CardContent>

@@ -40,7 +40,7 @@ const AxiosProvider = ({ children }: any) => {
     const options = {
       method: "POST",
       data,
-      url: "https://sports-backend-virid.vercel.app/api/v1/user/refresh-token",
+      url: "http://sports-backend-virid.vercel.app/api/v1/user/refresh-token",
     };
 
     return axios(options)

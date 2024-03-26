@@ -78,30 +78,30 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="grid md:grid-cols-2 items-center">
+      <section className="grid grid-cols-1 md:grid-cols-2 items-center">
         <img src={MissedChanceGif} alt="" />
-        <div>
+        <div className="overflow-hidden">
           <h1 className="font-bold text-5xl text-green-600">
             Need inspiration for your sessions?
           </h1>
-          <p className="mt-10 mr-5 font-medium">
+          <p className="mt-10 md:mr-5 font-medium">
             Never be short of ideas with our ever growing collection of Football
             drills. With pro drills and the community section, the inspiration
             is constantly growing.
           </p>
-          <ul className="flex flex-col gap-5 font-light mt-5">
-            <li className="inline-flex items-center gap-2 ">
-              <CheckCircleIcon className="text-green-600 min-w-fit" size={20} />
+          <ul className="flex flex-col gap-y-5 font-light mt-5">
+            <li className="inline-flex items-center gap-4">
+              <CheckCircleIcon className="text-green-600 w-8" />
               Browse Football drills by category or use the search bar to
               quickly find what you're looking for.
             </li>
-            <li className="inline-flex items-center gap-2 ">
-              <CheckCircleIcon className="text-green-600 min-w-fit" size={20} />
+            <li className="inline-flex items-center gap-4">
+              <CheckCircleIcon className="text-green-600 w-8" />
               Over 500+ football training games and drills Constant stream of
               community football drills and trends
             </li>
-            <li className="inline-flex items-center gap-2 ">
-              <CheckCircleIcon className="text-green-600 min-w-fit" size={20} />
+            <li className="inline-flex items-center gap-4">
+              <CheckCircleIcon className="text-green-600 w-8" />
               Favourite the football drills you like to save them and find them
               more easily later
             </li>

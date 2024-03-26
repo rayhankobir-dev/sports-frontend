@@ -108,7 +108,7 @@ const AddPlayerDialog = ({ title, open, setOpen, actions, role }: any) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-[95%] h-fit  md:max-w-lg rounded-xl">
+      <DialogContent className="max-w-[95%] h-[90%] md:h-fit  md:max-w-lg rounded-xl">
         <DialogHeader>
           <DialogTitle className="text-left">{title}</DialogTitle>
           <DialogDescription className="text-left">
@@ -122,7 +122,7 @@ const AddPlayerDialog = ({ title, open, setOpen, actions, role }: any) => {
           </div>
         ) : (
           <Form {...form}>
-            <ScrollArea className="max-h-full h-full overflow-hidden mt-3">
+            <ScrollArea className="max-h-full h-[95%] md:h-fit overflow-hidden mt-3">
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="px-1 space-y-8 w-full relative"

@@ -29,11 +29,14 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/lib/utils/ui/dialog";
 import { useVideo } from "@/hooks/useVideo";
 import MediaPreview from "@/components/media-preview";
+import { FileInput } from "../file-input";
+import { Icons } from "@/icons";
 
 const formSchema = z.object({
   title: z.string().min(10, {}),
@@ -47,10 +50,10 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
   const [fetching, setFetching] = useState(true);
   const [posting, setPosting] = useState(false);
   const [genres, setGenres] = useState([]);
-  const [thumbnail, setThumbnail]: any = useState(null);
-  const [thumbnailError, setThumbnailError] = useState("");
-  const [video, setVideo] = useState("");
-  const [videoError, setVideoError] = useState("");
+  const [thumbnail, setThumbnail]: any = useState<any>(null);
+  const [thumbnailError, setThumbnailError] = useState<any>(null);
+  const [video, setVideo] = useState<any>(null);
+  const [videoError, setVideoError] = useState<any>(null);
   const { authAxios }: any = useAxios();
   const { fetchVideos }: any = useVideo();
 
@@ -104,87 +107,29 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
     }
   };
 
-  function validateThumbnail(selectedImage: any): boolean {
-    const maxSize = 5 * 1024 * 1024;
-    if (!selectedImage) {
-      setThumbnailError("Thumbnail is required");
-      return false;
-    } else if (selectedImage.size > maxSize) {
-      setThumbnailError("Thumbnail exceeds maximum file size (5MB)");
-      return false;
-    } else {
-      const allowedFormats = ["jpg", "jpeg", "png", "webp"];
-      const fileNameParts = selectedImage.name.split(".");
-      const fileExtension =
-        fileNameParts[fileNameParts.length - 1].toLowerCase();
-      if (!allowedFormats.includes(fileExtension)) {
-        setThumbnailError(
-          "Thumbnail format is not supported(jpg,jpeg,png,webp)"
-        );
-        return false;
-      }
-      setThumbnailError("");
-      return true;
-    }
-  }
-
-  function validateVideo(video: any): boolean {
-    const maxSize = 50 * 1024 * 1024;
-    if (!video) {
-      setVideoError("Video is required");
-      return false;
-    } else if (video.size > maxSize) {
-      setVideoError("Video exceeds maximum file size (50MB)");
-      return false;
-    } else {
-      const allowedFormats = ["mp4", "wav", "mpeg4"];
-      const fileNameParts = video.name.split(".");
-      const fileExtension =
-        fileNameParts[fileNameParts.length - 1].toLowerCase();
-      if (!allowedFormats.includes(fileExtension)) {
-        setVideoError("Video format is not supported(mpeg4,wav,mp4)");
-        return false;
-      } else {
-        setVideoError("");
-        return true;
-      }
-    }
-  }
-
-  const handleImageChange = (event: any) => {
-    const file = event.target.files[0];
-    setThumbnail(file);
-    validateThumbnail(file);
-  };
-
-  const handleVideoChange = (event: any) => {
-    const file = event.target.files[0];
-    setVideo(file);
-    validateVideo(file);
-  };
-
   return (
-    <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit video</DialogTitle>
-          <DialogDescription>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="px-0 max-w-[95%] h-[90%] max-h-fit md:h-fit md:max-w-lg rounded-xl overflow-hidden">
+        <DialogHeader className="px-4">
+          <DialogTitle className="text-left">Edit the Video</DialogTitle>
+          <DialogDescription className="text-left">
             Make changes to your video here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
+
         {fetching ? (
-          <div className="h-24 w-full flex justify-center items-center">
-            <SpinerLoading size={22} className="text-green-500" />
+          <div className="w-full h-full flex justify-center items-center ">
+            <SpinerLoading className="text-green-600" />
           </div>
         ) : (
-          <Form {...form}>
-            <ScrollArea className="h-full mt-3">
+          <ScrollArea className="h-[95%] md:h-fit mt-3 overflow-hidden">
+            <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="px-1 space-y-8 w-full relative"
+                className="space-y-5"
               >
-                <div className="grid md:grid-cols-2 gap-3">
-                  <div className="col-span-1">
+                <div className="grid md:grid-cols-2 gap-3 px-4">
+                  <div className="col-span-2 md:col-span-1">
                     <FormField
                       control={form.control}
                       name="title"
@@ -204,7 +149,8 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
                       )}
                     />
                   </div>
-                  <div className="col-span-1">
+
+                  <div className="col-span-2 md:col-span-1">
                     <FormField
                       control={form.control}
                       name="genre"
@@ -238,30 +184,34 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
                       )}
                     />
                   </div>
-                  <div className="col-span-1">
+
+                  <div className="col-span-2">
                     <FormItem>
                       <Label>Thumbnail</Label>
-                      <Input
-                        name="thumbnail"
-                        type="file"
-                        className="cols-span-1 h-12 rounded-xl"
-                        onChange={handleImageChange}
-                        placeholder="Upload your content thumbnail"
+                      <FileInput
+                        fieldName="thumbnail"
+                        maxSize={500000000}
+                        setError={setThumbnailError}
+                        setOnChange={setThumbnail}
+                        supportedExtensions={["png", "jpg", "jpeg", "webp"]}
+                        Icon={Icons.image}
                       />
                       <Label className="font-light text-rose-500">
                         {thumbnailError && thumbnailError}
                       </Label>
                     </FormItem>
                   </div>
-                  <div className="col-span-1">
+
+                  <div className="col-span-2">
                     <FormItem>
                       <Label>Video</Label>
-                      <Input
-                        className="cols-span-1 h-12 rounded-xl"
-                        name="file"
-                        type="file"
-                        onChange={handleVideoChange}
-                        placeholder="Upload your content video"
+                      <FileInput
+                        fieldName="video"
+                        maxSize={5000000}
+                        setOnChange={setVideo}
+                        setError={setVideoError}
+                        supportedExtensions={["mp4", "mpeg4", "wav"]}
+                        Icon={Icons.video}
                       />
                       <Label className="font-light text-rose-500">
                         {videoError && videoError}
@@ -288,6 +238,7 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
                       )}
                     />
                   </div>
+
                   <div className="w-fit p-2 border border-dashed rounded-lg">
                     <MediaPreview
                       className="h-auto rounded-sm"
@@ -299,20 +250,22 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
                   </div>
                 </div>
 
-                <Button
-                  disabled={posting}
-                  className="ml-auto min-w-fit w-1/4"
-                  type="submit"
-                >
-                  {posting ? (
-                    <SpinerLoading text="Publishing.." textHidden={false} />
-                  ) : (
-                    "Save Changes"
-                  )}
-                </Button>
+                <DialogFooter className="px-4">
+                  <Button
+                    disabled={posting}
+                    className="min-w-fit w-full md:w-2/4"
+                    type="submit"
+                  >
+                    {posting ? (
+                      <SpinerLoading text="Publishing.." textHidden={false} />
+                    ) : (
+                      "Publish"
+                    )}
+                  </Button>
+                </DialogFooter>
               </form>
-            </ScrollArea>
-          </Form>
+            </Form>
+          </ScrollArea>
         )}
       </DialogContent>
     </Dialog>
