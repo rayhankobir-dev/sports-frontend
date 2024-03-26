@@ -20,7 +20,6 @@ import SectionBg from "@/assets/section-bg.jpeg";
 import VideoCard from "@/components/video-card";
 import { Button } from "@/lib/utils/ui/button";
 import { LuBadgeCheck } from "react-icons/lu";
-import RatingView from "@/components/rating";
 import useAxios from "@/hooks/useAxios";
 import ReactPlayer from "react-player";
 import useAuth from "@/hooks/useAuth";
@@ -121,7 +120,6 @@ export default function SingleVideoPage() {
                     tempora, quo voluptate modi ea.
                   </p>
                 </div>
-                <RatingView rating={4} size={24} />
                 <div className="pt-4">
                   {auth.isAuth && (
                     <Fragment>
