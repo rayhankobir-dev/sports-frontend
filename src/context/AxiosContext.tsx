@@ -11,11 +11,11 @@ const AxiosProvider = ({ children }: any) => {
   const authContext: any = useContext(AuthContext);
 
   const authAxios = axios.create({
-    baseURL: "https://sports-backend-sigma.vercel.app/api/v1",
+    baseURL: "http://localhost:3000/api/v1",
   });
 
   const publicAxios = axios.create({
-    baseURL: "https://sports-backend-sigma.vercel.app/api/v1",
+    baseURL: "http://localhost:3000/api/v1",
   });
 
   authAxios.interceptors.request.use(
@@ -42,7 +42,7 @@ const AxiosProvider = ({ children }: any) => {
     const options = {
       method: "POST",
       data,
-      url: "https://sports-backend-sigma.vercel.app/api/v1/user/refresh-token",
+      url: "http://localhost:3000/api/v1/user/refresh-token",
     };
 
     return axios(options)
