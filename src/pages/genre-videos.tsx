@@ -40,7 +40,9 @@ const GenreVideoPage = () => {
           </p>
         </div>
         {loading ? (
-          <SpinerLoading />
+          <div className="h-96 w-full flex justify-center items-center">
+            <SpinerLoading size={25} className="text-green-600" />
+          </div>
         ) : genreVideos.length > 0 ? (
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-2">
             {genreVideos.map((video: any) => (
