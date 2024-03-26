@@ -98,7 +98,7 @@ const EditVideo = ({ open, setOpen, initialData }: any) => {
       toast.success(response.data.message);
       setOpen(false);
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message || error.message);
     } finally {
       setPosting(false);
     }

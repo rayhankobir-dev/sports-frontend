@@ -66,7 +66,7 @@ export default function ChangePassword() {
       });
       toast.success(response.data.message);
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message || error.message);
     } finally {
       setLoading(false);
     }

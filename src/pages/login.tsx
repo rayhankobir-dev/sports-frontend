@@ -60,7 +60,7 @@ function LoginPage() {
       toast.success(response.data.message);
       loginForm.reset();
     } catch (error: any) {
-      toast.error(error.response.data.message || error.message);
+      toast.error(error?.response?.data?.message || error.message);
     } finally {
       setLoading(false);
     }

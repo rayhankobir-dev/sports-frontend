@@ -77,7 +77,7 @@ const AddAdminDialog = ({ open, setOpen, actions, role }: any) => {
         toast.success(response.data.message);
         actions.fetchAdmin();
       } catch (error: any) {
-        toast.error(error.response.data.message);
+        toast.error(error?.response?.data?.message || error.message);
       } finally {
         setPosting(false);
       }

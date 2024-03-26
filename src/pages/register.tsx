@@ -51,7 +51,7 @@ function RegisterPage() {
       registerForm.reset();
       navigate("/login");
     } catch (error: any) {
-      toast.error(error.response.data.error);
+      toast.error(error?.response?.data?.message || error.message);
     } finally {
       setLoading(false);
     }

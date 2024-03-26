@@ -99,7 +99,6 @@ const AddPlayerDialog = ({ title, open, setOpen, actions, role }: any) => {
         form.reset();
         setAvatar(null);
       } catch (error: any) {
-        console.log(error);
         toast.error(error.message);
       } finally {
         setPosting(false);

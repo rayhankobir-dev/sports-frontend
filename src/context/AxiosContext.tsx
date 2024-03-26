@@ -37,8 +37,6 @@ const AxiosProvider = ({ children }: any) => {
         authContext.auth.refreshToken || localStorage.getItem("refreshToken"),
     };
 
-    console.log(data);
-
     const options = {
       method: "POST",
       data,

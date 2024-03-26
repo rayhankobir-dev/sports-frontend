@@ -112,7 +112,7 @@ const PublishVideoDialog = ({ open, setOpen }: any) => {
         toast.success(response.data.message);
         fetchVideos();
       } catch (error: any) {
-        toast.error(error.response.data.message);
+        toast.error(error?.response?.data?.message || error.message);
       } finally {
         setPosting(false);
       }
