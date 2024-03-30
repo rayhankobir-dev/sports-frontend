@@ -182,6 +182,40 @@ function LoginPage() {
               </Button>
             </form>
           </Form>
+          <div className="flex justify-between gap-2 px-2">
+            <Button
+              onClick={() => {
+                loginForm.setValue("email", "admin@gmail.com");
+                loginForm.setValue("password", "Admin@1234");
+              }}
+              variant="outline"
+              className="w-full bg-green-100 text-green-600 border-green-500"
+            >
+              Admin
+            </Button>
+
+            <Button
+              onClick={() => {
+                loginForm.setValue("email", "coach@gmail.com");
+                loginForm.setValue("password", "123456");
+              }}
+              variant="outline"
+              className="w-full bg-green-100 text-green-600 border-green-500"
+            >
+              Coach
+            </Button>
+
+            <Button
+              onClick={() => {
+                loginForm.setValue("email", "player@gmail.com");
+                loginForm.setValue("password", "123456");
+              }}
+              variant="outline"
+              className="w-full bg-green-100 text-green-600 border-green-500"
+            >
+              Player
+            </Button>
+          </div>
           <div className="inline-flex items-center gap-2 mt-4 text-center text-sm px-2">
             <p>Don't have an account?</p>
             <Link className="underline text-green-600" to="/register">
